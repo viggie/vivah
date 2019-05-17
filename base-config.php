@@ -11,9 +11,9 @@ define('DS', DIRECTORY_SEPARATOR);
 define('BASE_PATH', __DIR__.DS);
 define('SITE', BASE_PATH.'public'.DS);
 define('CLASSES', BASE_PATH.'classes'.DS);
-define('CONTROLLER', BASE_PATH.'controllers'.DS);
-define('MODEL', BASE_PATH.'models'.DS);
-define('VIEW', BASE_PATH.'views'.DS);
+define('CONTROLLER', BASE_PATH.'mvc/Controllers'.DS);
+define('MODEL', BASE_PATH.'mvc/Models'.DS);
+define('VIEW', BASE_PATH.'mvc/Views'.DS);
 
 // Domain and protocol
 define('DOMAIN', $_SERVER['HTTP_HOST']);
