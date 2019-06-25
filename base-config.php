@@ -40,4 +40,4 @@ if (strpos($_SERVER['REQUEST_URI'], $base)!==0) {
 } else {
 	$base = '/';  // Workaround for Windows Servers
 }
-//define('BASE_URL', $base);
+define('BASE_URL', $base);

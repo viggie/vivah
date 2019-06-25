@@ -2,7 +2,7 @@
 /*
  * DBinit
  */
-$DBname = 'vhosts_matri';
+$DBname = 'vhosts_vivah';
 $DBuser = 'viggie';
 $DBpass = 'vi';
 $DBhost = 'localhost';
