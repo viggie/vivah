@@ -3,6 +3,10 @@
  * Basic Configurations
  * Author Viggie <viggie@viggie.com>
  * 
+ * Site specific settings are in site-config.php. 
+ * Normally settings in this file are not needed to be changed
+ * unless you are renaming / changing folders within the app.
+ * 
  */
 
 // Basic Config
@@ -15,29 +19,6 @@ define('CONTROLLER', BASE_PATH.'mvc/Controllers'.DS);
 define('MODEL', BASE_PATH.'mvc/Models'.DS);
 define('VIEW', BASE_PATH.'mvc/Views'.DS);
 
-// Domain and protocol
-define('DOMAIN', $_SERVER['HTTP_HOST']);
-if (!empty($_SERVER['HTTPS'])) {
-	define('PROTOCOL', 'https://');
-} else {
-	define('PROTOCOL', 'http://');
-}
-
-// Base URL
-$base = '';
-if (!empty($_SERVER['DOCUMENT_ROOT']) && !empty($_SERVER['SCRIPT_NAME']) && empty($base)) {
-	$base = str_replace($_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_NAME']);
-	$base = dirname($base);
-} elseif (empty($base)) {
-	$base = empty( $_SERVER['SCRIPT_NAME'] ) ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME'];
-	$base = dirname($base);
-}
-if (strpos($_SERVER['REQUEST_URI'], $base)!==0) {
-	$base = '/';
-} elseif ($base!=DS) {
-	$base = trim($base, '/');
-	$base = '/'.$base.'/';
-} else {
-	$base = '/';  // Workaround for Windows Servers
-}
-define('BASE_URL', $base);
+// Build Base URL
+$protocol = (!empty($_SERVER['HTTPS'])) ? 'https://' : 'http://';
+define('BASE_URL', $protocol.$_SERVER['HTTP_HOST']);

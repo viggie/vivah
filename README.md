@@ -7,7 +7,7 @@ PHP 7.2
 MySQL 5.7
 
 Bootstrap 4.2.1
-FontAwesom 5.7
+FontAwesome 5.7
 jQuery 3.3.1 slim
 
 ## Site Configuration
