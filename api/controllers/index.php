@@ -2,7 +2,7 @@
 /*
  * Home Page for Vivah
  */
-require_once(CLASSES.'DB-init.php');
+require_once(API.'classes/DB-init.php');
 include(MODEL.'profile.php');
 include(MODEL.'masters.php');
 include(MODEL.'login.php');

@@ -2,6 +2,8 @@
 /*
  * DB Configurations
  * Author Viggie <viggie@viggie.com>
+ * 
+ * Change your Site Name & Slogan here.
  */
 // include base config
 include('base-config.php');
