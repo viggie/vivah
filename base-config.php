@@ -14,10 +14,11 @@ define('MM', 'Matrimony');
 define('DS', DIRECTORY_SEPARATOR);
 define('BASE_PATH', __DIR__.DS);
 define('SITE', BASE_PATH.'public'.DS);
+define('CLASSES', BASE_PATH.'classes'.DS);
 define('API', BASE_PATH.'api'.DS);
-define('CONTROLLER', BASE_PATH.'api/controllers'.DS);
+define('CONTROLLER', BASE_PATH.'web'.DS);
 define('MODEL', BASE_PATH.'api/models'.DS);
-define('VIEW', BASE_PATH.'views'.DS);
+define('VIEW', BASE_PATH.'web/views'.DS);
 
 // Build Base URL
 $protocol = (!empty($_SERVER['HTTPS'])) ? 'https://' : 'http://';

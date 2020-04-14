@@ -4,8 +4,8 @@
  * 
  */
 require_once '../site-config.php';
-require_once VIEW.'ViRouter.php';
-require_once(VIEW.'ViSession.php');
+require_once CLASSES.'ViRouter.php';
+require_once CLASSES.'ViSession.php';
 require_once VIEW.'Theme.php';
 
 $router = new ViggieRouter();
