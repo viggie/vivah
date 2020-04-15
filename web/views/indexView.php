@@ -22,43 +22,6 @@ class indexView extends siteView
         $search_form = $this->searchForm($subsectlist,'');
 
         $sliders = '
-        <div id="mylaiSlider" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="d-block w-100" src="'.BASE_URL.'/assets/images/banner/Slide01.jpg" alt="First slide">
-            <div class="carousel-caption d-none d-md-block">
-             <h3 class="slider-title">Find perfect matches in <br>your preferred choice</h3>
-             <p><span style="font-size: 28px; background-color: rgb(255, 255, 255); top: 0px; left: 78.5px; padding: 0px; line-height: 42px; letter-spacing: 0.42px; color: #dc3545;">Detailed search &amp; consulting.</span></p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="'.BASE_URL.'/assets/images/banner/Slide02.jpg" alt="Second slide">
-            <div class="carousel-caption d-none d-md-block">
-             <h3 class="slider-title">Detailed Search &amp; Consulting </h3>
-             <p><span style="font-size: 28px; background-color: rgb(255, 255, 255); top: 0px; left: 78.5px; padding: 0px; line-height: 42px; letter-spacing: 0.42px; color: #dc3545;">Search Now</span></p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="'.BASE_URL.'/assets/images/banner/Slide03.jpg" alt="Third slide">
-            <div class="carousel-caption d-none d-md-block">
-             <h3 class="slider-title">Upload your details <br>get requests</h3>
-             <p><span style="font-size: 28px; background-color: rgb(255, 255, 255); top: 0px; left: 78.5px; padding: 0px; line-height: 42px; letter-spacing: 0.42px; color: #dc3545;">Profile </span></p>
-            </div>
-          </div>
-
-        </div>
-        <!--
-        <a class="carousel-control-prev" href="#mylaiSlider" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#mylaiSlider" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-        -->
-
-
        <div id="hoverSearch">
          <div class="bg-warning pt-2 pl-3">
          '. $search_form .'
@@ -297,22 +260,3 @@ class indexView extends siteView
 }
               
 
-/*
-Other two sliders
-
-          <div class="carousel-item">
-            <img class="d-block w-100" src="'.BASE_URL.'/assets/images/banner/02-beach-beach-wedding-chairs.jpg" alt="Second slide">
-            <div class="carousel-caption d-none d-md-block" style="bottom: 130px;">
-             <h3 class="slider-title text-dark">Largest Matrimonial Service</h3>
-             <p><span style="font-size: 28px; background-color: rgb(255, 255, 255); top: 0px; left: 78.5px; padding: 0px; line-height: 42px; letter-spacing: 0.42px; color: #dc3545;">for Brahmin Community <br>in Tamilnadu</span></p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="'.BASE_URL.'/assets/images/banner/03-black-and-white-car.jpg" alt="Third slide">
-            <div class="carousel-caption d-none d-md-block">
-             <h5 class="slider-title">Find your Special One!</h5>
-             <p> </p>
-            </div>
-          </div>
-
-          */

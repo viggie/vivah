@@ -11,9 +11,14 @@ include('base-config.php');
 // Site Meta
 define('SITENAME', 'Matrimony Site');
 define('SLOGAN', 'Matrimony website for South India');
-//define('BASE_URL', 'http://vivah.localhost');
-define('ADMIN_URL', BASE_URL.'admin/');
-define('NOT_FOUND',VIEW.'404.php');
 define('KEYWORDS', 'matrimony, match making, bride, groom, arranged marriage');
 define('DESCRIPTION', 'Matrimony website specifically designed for South Indian marriages with religious & community based classifications.');
- 
+
+// Advanced settings
+define('ADMIN_URL', 'admin');  // change the admin url to obscure eg: adm123 or xyz123
+
+// Edit the database access details as needed.
+define('DB_NAME', 'vhosts_vivah');
+define('DB_USER', 'viggie');
+define('DB_PASS', 'vi');
+define('DB_HOST', 'localhost');

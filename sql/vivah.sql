@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 27, 2019 at 01:55 PM
--- Server version: 5.7.26-0ubuntu0.18.04.1
--- PHP Version: 7.2.17-0ubuntu0.18.04.1
+-- Generation Time: Apr 14, 2020 at 08:57 PM
+-- Server version: 5.7.29-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,45 +25,67 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `communities`
+-- Table structure for table `param_communities`
 --
 
-CREATE TABLE `communities` (
+CREATE TABLE `param_communities` (
   `commid` int(11) NOT NULL,
   `name_english` varchar(255) NOT NULL,
   `name_regional` varchar(255) NOT NULL,
   `parentid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameters - Communities';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `educategory`
+-- Table structure for table `param_educategory`
 --
 
-CREATE TABLE `educategory` (
+CREATE TABLE `param_educategory` (
   `eduid` int(11) NOT NULL,
   `category` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameters - Education Category';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_rashi`
+-- Table structure for table `param_mstatus`
 --
 
-CREATE TABLE `m_rashi` (
+CREATE TABLE `param_mstatus` (
+  `statusid` int(11) NOT NULL,
+  `status_eng` varchar(100) NOT NULL,
+  `status_reg` varchar(100) NOT NULL,
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameters - Marital Status';
+
+--
+-- Dumping data for table `param_mstatus`
+--
+
+INSERT INTO `param_mstatus` (`statusid`, `status_eng`, `status_reg`, `updated_on`) VALUES
+(1, 'Never Married', '', '2019-06-26 15:37:16'),
+(2, 'Widow / Widower', '', '2019-06-26 15:37:16'),
+(3, 'Divorced', '', '2019-06-26 15:37:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `param_rashi`
+--
+
+CREATE TABLE `param_rashi` (
   `rashiid` int(11) NOT NULL,
   `rashi_eng` varchar(100) NOT NULL,
   `rashi_reg` varchar(100) NOT NULL,
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameters - Rashi Astrology';
 
 --
--- Dumping data for table `m_rashi`
+-- Dumping data for table `param_rashi`
 --
 
-INSERT INTO `m_rashi` (`rashiid`, `rashi_eng`, `rashi_reg`, `updated_on`) VALUES
+INSERT INTO `param_rashi` (`rashiid`, `rashi_eng`, `rashi_reg`, `updated_on`) VALUES
 (1, 'Aries', '', '2019-06-27 06:52:26'),
 (2, 'Taurus', '', '2019-06-27 06:52:26'),
 (3, 'Gemini', '', '2019-06-27 06:52:47'),
@@ -80,46 +102,47 @@ INSERT INTO `m_rashi` (`rashiid`, `rashi_eng`, `rashi_reg`, `updated_on`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_religion`
+-- Table structure for table `param_religion`
 --
 
-CREATE TABLE `m_religion` (
+CREATE TABLE `param_religion` (
   `religionid` int(3) NOT NULL,
   `religion_eng` varchar(150) NOT NULL,
   `religion_reg` varchar(150) NOT NULL,
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameters - Religion';
 
 --
--- Dumping data for table `m_religion`
+-- Dumping data for table `param_religion`
 --
 
-INSERT INTO `m_religion` (`religionid`, `religion_eng`, `religion_reg`, `updated_on`) VALUES
+INSERT INTO `param_religion` (`religionid`, `religion_eng`, `religion_reg`, `updated_on`) VALUES
 (1, 'HINDU', '', '2019-06-26 15:28:47'),
 (2, 'CHRISTIAN', '', '2019-06-26 15:28:47'),
 (3, 'MUSLIM', '', '2019-06-26 15:29:21'),
 (4, 'BUDDHISM', '', '2019-06-26 15:29:21'),
-(5, 'OTHER', '', '2019-06-26 15:29:37'),
-(6, 'AGNOSTIC', '', '2019-06-26 15:29:37');
+(5, 'JAIN', '', '2019-06-26 15:29:37'),
+(6, 'AGNOSTIC', '', '2019-06-26 15:29:37'),
+(7, 'OTHERS', '', '2019-12-17 08:26:39');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_stars`
+-- Table structure for table `param_stars`
 --
 
-CREATE TABLE `m_stars` (
+CREATE TABLE `param_stars` (
   `starid` int(11) NOT NULL,
   `star_eng` varchar(100) NOT NULL,
   `star_reg` varchar(100) NOT NULL,
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameters - Stars Astrology';
 
 --
--- Dumping data for table `m_stars`
+-- Dumping data for table `param_stars`
 --
 
-INSERT INTO `m_stars` (`starid`, `star_eng`, `star_reg`, `updated_on`) VALUES
+INSERT INTO `param_stars` (`starid`, `star_eng`, `star_reg`, `updated_on`) VALUES
 (1, 'Anusham', '', '2019-06-27 06:43:02'),
 (2, 'Aswini', '', '2019-06-27 06:43:02'),
 (3, 'Avittam', '', '2019-06-27 06:43:02'),
@@ -151,33 +174,12 @@ INSERT INTO `m_stars` (`starid`, `star_eng`, `star_reg`, `updated_on`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_status`
---
-
-CREATE TABLE `m_status` (
-  `statusid` int(11) NOT NULL,
-  `status_eng` varchar(100) NOT NULL,
-  `status_reg` varchar(100) NOT NULL,
-  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `m_status`
---
-
-INSERT INTO `m_status` (`statusid`, `status_eng`, `status_reg`, `updated_on`) VALUES
-(1, 'Never Married', '', '2019-06-26 15:37:16'),
-(2, 'Widow / Widower', '', '2019-06-26 15:37:16'),
-(3, 'Divorced', '', '2019-06-26 15:37:47');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `seekers`
 --
 
 CREATE TABLE `seekers` (
   `id` int(11) NOT NULL,
+  `added_by` int(11) DEFAULT NULL COMMENT 'usrid',
   `name` varchar(255) NOT NULL,
   `lastname` varchar(150) DEFAULT NULL,
   `gender` enum('F','M') NOT NULL DEFAULT 'F',
@@ -199,11 +201,11 @@ CREATE TABLE `seekers` (
   `job_title` varchar(150) DEFAULT NULL,
   `job_salary` varchar(255) DEFAULT NULL,
   `father_name` varchar(150) DEFAULT NULL,
-  `father_jo` varchar(150) DEFAULT NULL,
+  `father_job` varchar(150) DEFAULT NULL,
   `mother_name` varchar(150) DEFAULT NULL,
   `mother_job` varchar(150) DEFAULT NULL,
   `preferences` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Match Seekers Profile';
 
 -- --------------------------------------------------------
 
@@ -231,10 +233,10 @@ INSERT INTO `staffs` (`staffid`, `user`, `name`, `passwd`, `role`, `status`, `ad
 -- --------------------------------------------------------
 
 --
--- Table structure for table `useracc`
+-- Table structure for table `user_accounts`
 --
 
-CREATE TABLE `useracc` (
+CREATE TABLE `user_accounts` (
   `usrid` int(11) NOT NULL,
   `display_name` varchar(75) DEFAULT NULL,
   `email` varchar(150) NOT NULL,
@@ -244,7 +246,7 @@ CREATE TABLE `useracc` (
   `points_expire` date DEFAULT NULL,
   `joined_on` date NOT NULL,
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User Login & credits';
 
 -- --------------------------------------------------------
 
@@ -261,7 +263,7 @@ CREATE TABLE `user_paydata` (
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `paid_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User credits';
 
 -- --------------------------------------------------------
 
@@ -281,40 +283,40 @@ CREATE TABLE `user_viewlog` (
 --
 
 --
--- Indexes for table `communities`
+-- Indexes for table `param_communities`
 --
-ALTER TABLE `communities`
+ALTER TABLE `param_communities`
   ADD PRIMARY KEY (`commid`);
 
 --
--- Indexes for table `educategory`
+-- Indexes for table `param_educategory`
 --
-ALTER TABLE `educategory`
+ALTER TABLE `param_educategory`
   ADD PRIMARY KEY (`eduid`);
 
 --
--- Indexes for table `m_rashi`
+-- Indexes for table `param_mstatus`
 --
-ALTER TABLE `m_rashi`
+ALTER TABLE `param_mstatus`
+  ADD PRIMARY KEY (`statusid`);
+
+--
+-- Indexes for table `param_rashi`
+--
+ALTER TABLE `param_rashi`
   ADD PRIMARY KEY (`rashiid`);
 
 --
--- Indexes for table `m_religion`
+-- Indexes for table `param_religion`
 --
-ALTER TABLE `m_religion`
+ALTER TABLE `param_religion`
   ADD PRIMARY KEY (`religionid`);
 
 --
--- Indexes for table `m_stars`
+-- Indexes for table `param_stars`
 --
-ALTER TABLE `m_stars`
+ALTER TABLE `param_stars`
   ADD PRIMARY KEY (`starid`);
-
---
--- Indexes for table `m_status`
---
-ALTER TABLE `m_status`
-  ADD PRIMARY KEY (`statusid`);
 
 --
 -- Indexes for table `seekers`
@@ -329,9 +331,9 @@ ALTER TABLE `staffs`
   ADD PRIMARY KEY (`staffid`);
 
 --
--- Indexes for table `useracc`
+-- Indexes for table `user_accounts`
 --
-ALTER TABLE `useracc`
+ALTER TABLE `user_accounts`
   ADD PRIMARY KEY (`usrid`);
 
 --
@@ -351,40 +353,40 @@ ALTER TABLE `user_viewlog`
 --
 
 --
--- AUTO_INCREMENT for table `communities`
+-- AUTO_INCREMENT for table `param_communities`
 --
-ALTER TABLE `communities`
+ALTER TABLE `param_communities`
   MODIFY `commid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `educategory`
+-- AUTO_INCREMENT for table `param_educategory`
 --
-ALTER TABLE `educategory`
+ALTER TABLE `param_educategory`
   MODIFY `eduid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `m_rashi`
+-- AUTO_INCREMENT for table `param_mstatus`
 --
-ALTER TABLE `m_rashi`
+ALTER TABLE `param_mstatus`
+  MODIFY `statusid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `param_rashi`
+--
+ALTER TABLE `param_rashi`
   MODIFY `rashiid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `m_religion`
+-- AUTO_INCREMENT for table `param_religion`
 --
-ALTER TABLE `m_religion`
-  MODIFY `religionid` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `param_religion`
+  MODIFY `religionid` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `m_stars`
+-- AUTO_INCREMENT for table `param_stars`
 --
-ALTER TABLE `m_stars`
+ALTER TABLE `param_stars`
   MODIFY `starid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
---
--- AUTO_INCREMENT for table `m_status`
---
-ALTER TABLE `m_status`
-  MODIFY `statusid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `seekers`
@@ -399,9 +401,9 @@ ALTER TABLE `staffs`
   MODIFY `staffid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `useracc`
+-- AUTO_INCREMENT for table `user_accounts`
 --
-ALTER TABLE `useracc`
+ALTER TABLE `user_accounts`
   MODIFY `usrid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
