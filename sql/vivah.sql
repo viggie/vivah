@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 14, 2020 at 08:57 PM
+-- Generation Time: Apr 19, 2020 at 05:35 PM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
@@ -43,6 +43,17 @@ CREATE TABLE `param_communities` (
 
 CREATE TABLE `param_educategory` (
   `eduid` int(11) NOT NULL,
+  `category` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameters - Education Category';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `param_jobcategory`
+--
+
+CREATE TABLE `param_jobcategory` (
+  `jobid` int(11) NOT NULL,
   `category` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameters - Education Category';
 
@@ -190,21 +201,25 @@ CREATE TABLE `seekers` (
   `city` varchar(100) DEFAULT NULL,
   `state` varchar(100) DEFAULT NULL,
   `country` varchar(100) DEFAULT NULL,
+  `education` varchar(255) DEFAULT NULL,
+  `eduid` int(3) NOT NULL,
+  `commid` int(3) NOT NULL,
   `religionid` int(3) DEFAULT NULL,
   `starid` int(11) DEFAULT NULL,
   `rashiid` int(11) DEFAULT NULL,
   `statusid` int(11) NOT NULL DEFAULT '1',
   `astro_pic` varchar(255) DEFAULT NULL,
   `profile` text,
+  `jobid` int(3) NOT NULL,
   `job_place` varchar(100) DEFAULT NULL,
-  `job_type` varchar(255) DEFAULT NULL,
   `job_title` varchar(150) DEFAULT NULL,
   `job_salary` varchar(255) DEFAULT NULL,
   `father_name` varchar(150) DEFAULT NULL,
   `father_job` varchar(150) DEFAULT NULL,
   `mother_name` varchar(150) DEFAULT NULL,
   `mother_job` varchar(150) DEFAULT NULL,
-  `preferences` text
+  `preferences` text,
+  `status` enum('A','P','S','D') NOT NULL DEFAULT 'A' COMMENT 'Active, Pending, Suspend, Delete'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Match Seekers Profile';
 
 -- --------------------------------------------------------
@@ -244,9 +259,25 @@ CREATE TABLE `user_accounts` (
   `passwd` varchar(130) DEFAULT NULL,
   `balance_points` int(5) DEFAULT NULL,
   `points_expire` date DEFAULT NULL,
+  `status` enum('A','P','S','D') NOT NULL COMMENT 'Active, Pending, Suspend, Delete',
   `joined_on` date NOT NULL,
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User Login & credits';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_forgotpwd`
+--
+
+CREATE TABLE `user_forgotpwd` (
+  `fpid` int(11) NOT NULL,
+  `profile_id` int(11) NOT NULL,
+  `pwdtoken` varchar(150) NOT NULL,
+  `request_from` varchar(25) DEFAULT NULL,
+  `obtained_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `changed_on` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -295,6 +326,12 @@ ALTER TABLE `param_educategory`
   ADD PRIMARY KEY (`eduid`);
 
 --
+-- Indexes for table `param_jobcategory`
+--
+ALTER TABLE `param_jobcategory`
+  ADD PRIMARY KEY (`jobid`) USING BTREE;
+
+--
 -- Indexes for table `param_mstatus`
 --
 ALTER TABLE `param_mstatus`
@@ -334,7 +371,14 @@ ALTER TABLE `staffs`
 -- Indexes for table `user_accounts`
 --
 ALTER TABLE `user_accounts`
-  ADD PRIMARY KEY (`usrid`);
+  ADD PRIMARY KEY (`usrid`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `user_forgotpwd`
+--
+ALTER TABLE `user_forgotpwd`
+  ADD PRIMARY KEY (`fpid`);
 
 --
 -- Indexes for table `user_paydata`
@@ -363,6 +407,12 @@ ALTER TABLE `param_communities`
 --
 ALTER TABLE `param_educategory`
   MODIFY `eduid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `param_jobcategory`
+--
+ALTER TABLE `param_jobcategory`
+  MODIFY `jobid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `param_mstatus`
@@ -405,6 +455,12 @@ ALTER TABLE `staffs`
 --
 ALTER TABLE `user_accounts`
   MODIFY `usrid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_forgotpwd`
+--
+ALTER TABLE `user_forgotpwd`
+  MODIFY `fpid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_paydata`

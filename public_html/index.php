@@ -1,6 +1,6 @@
 <?php
 /*
- * Processing all URLs for Matrimony
+ * Processing all URLs for Vivah
  * 
  */
 require_once '../site-config.php';
@@ -14,24 +14,27 @@ $router->route('/^\/?$/', function(){
  });
 $router->route('/^\/([\w-]+)\/?$/', function($section){
 	if(is_file(CONTROLLER."{$section}.php"))   
- 	  include CONTROLLER."{$section}.php";
- 	  else include NOT_FOUND;
+	   include CONTROLLER."{$section}.php";
+	else if($section==ADMIN_URL) include CONTROLLER.'admin/index.php';
+	else include NOT_FOUND;
  });
 $router->route('/^\/([\w-]+)\/([\w-]+)\/?$/', function($section,$task){
 	if(is_file(CONTROLLER."{$section}.php"))
  	  include CONTROLLER."{$section}.php";
+	else if($section==ADMIN_URL) include CONTROLLER.'admin/index.php';
 	else include NOT_FOUND;
  });
 $router->route('/^\/([\w-]+)\/([\w-]+)\/([\w-]+)\/?$/', function($section,$cat,$task){
-	if($section == 'blog') 
- 	  include CONTROLLER."blog-posts/blogpost.php";
- 	else if($section == 'portfolio') 
- 	  include CONTROLLER."pfolio/{$cat}-{$task}.php";
+	if(is_file(CONTROLLER."{$section}.php"))
+ 	  include CONTROLLER."{$section}.php";
+	else if($section==ADMIN_URL) include CONTROLLER.'admin/index.php';
 	else include NOT_FOUND;
-   // print "Folder Cat Page - Load {$section}/{$cat}/{$task}.php";
  });
-$router->route('/^\/([\w-]+)\/([\w-]+)\/([\w-]+)\/([\w-]+)\/?$/', function($city, $region, $task, $subtask){
-    print "city={$city}, region={$region}, task={$task}, subtask={$subtask}";
+$router->route('/^\/([\w-]+)\/([\w-]+)\/([\w-]+)\/([\w-]+)\/?$/', function($section,$cat, $task, $subtask){
+	if(is_file(CONTROLLER."{$section}.php"))
+ 	  include CONTROLLER."{$section}.php";
+	else if($section==ADMIN_URL) include CONTROLLER.'admin/index.php';
+	else include NOT_FOUND;
  });
 
 

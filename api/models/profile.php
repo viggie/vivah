@@ -12,7 +12,7 @@ class Profile
     }
 
     public function getCounts() {
-        $qst = "SELECT status,count(*)as totall FROM profiles GROUP BY status";
+        $qst = "SELECT statusid,count(*)as totall FROM seekers WHERE status='A' GROUP BY statusid";
         $res = $this->db->query($qst);
         $data = $this->change2Array($res);
 
@@ -20,14 +20,15 @@ class Profile
     }
 
 
-    public function getActive($limit=5) {
-        $qst = "SELECT p.*, e.category, g.gothram, r.rashi_eng, s.star_eng, c.name_english 
-            FROM profiles as p
-            LEFT JOIN m_edutype as e ON e.eduid = p.eduid
-            LEFT JOIN m_gothram as g ON g.gotraid = p.gothraid
-            LEFT JOIN m_rashi as r ON r.rashiid = p.rashiid
-            LEFT JOIN m_stars as s ON s.starid = p.starid
-            LEFT JOIN m_subsect as c ON c.subsectid = p.subsectid
+    public function getActive($limit=200) {
+        $qst = "SELECT p.*, e.category, j.category, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
+            FROM seekers as p
+            LEFT JOIN param_educategory as e ON e.eduid = p.eduid
+            LEFT JOIN param_jobcategory as j ON j.jobid = p.jobid
+            LEFT JOIN param_religion as g ON g.religionid = p.religionid
+            LEFT JOIN param_rashi as r ON r.rashiid = p.rashiid
+            LEFT JOIN param_stars as s ON s.starid = p.starid
+            LEFT JOIN param_communities as c ON c.commid = p.commid
             WHERE p.status = 'A' ORDER BY p.id DESC LIMIT $limit";
         $res = $this->db->query($qst);
         $data = $this->change2Array($res);
@@ -36,13 +37,14 @@ class Profile
     }
 
     public function getAll() {
-        $qst = "SELECT p.*, e.category, g.gothram, r.rashi_eng, s.star_eng, c.name_english 
-            FROM profiles as p
-            LEFT JOIN m_edutype as e ON e.eduid = p.eduid
-            LEFT JOIN m_gothram as g ON g.gotraid = p.gothraid
-            LEFT JOIN m_rashi as r ON r.rashiid = p.rashiid
-            LEFT JOIN m_stars as s ON s.starid = p.starid
-            LEFT JOIN m_subsect as c ON c.subsectid = p.subsectid
+        $qst = "SELECT p.*, e.category, j.category, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
+            FROM seekers as p
+            LEFT JOIN param_educategory as e ON e.eduid = p.eduid
+            LEFT JOIN param_jobcategory as j ON j.jobid = p.jobid
+            LEFT JOIN param_religion as g ON g.religionid = p.religionid
+            LEFT JOIN param_rashi as r ON r.rashiid = p.rashiid
+            LEFT JOIN param_stars as s ON s.starid = p.starid
+            LEFT JOIN param_communities as c ON c.commid = p.commid
             ORDER BY p.id DESC";
         $res = $this->db->query($qst);
         $data = $this->change2Array($res);
@@ -53,14 +55,14 @@ class Profile
     public function get($id) {
         if($id>0) {
             $qst = "SELECT p.*, TIMESTAMPDIFF(YEAR, p.dob, now()) as age,
-                    e.category, j.job_type, g.gothram, r.rashi_eng, s.star_eng, c.name_english 
-                        FROM profiles as p
-                        LEFT JOIN m_edutype as e ON e.eduid = p.eduid
-                        LEFT JOIN m_jobtype as j ON j.jobid = p.jobid
-                        LEFT JOIN m_gothram as g ON g.gotraid = p.gothraid
-                        LEFT JOIN m_rashi as r ON r.rashiid = p.rashiid
-                        LEFT JOIN m_stars as s ON s.starid = p.starid
-                        LEFT JOIN m_subsect as c ON c.subsectid = p.subsectid
+                    e.category, j.category, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
+                        FROM seekers as p
+                        LEFT JOIN param_educategory as e ON e.eduid = p.eduid
+                        LEFT JOIN param_jobcategory as j ON j.jobid = p.jobid
+                        LEFT JOIN param_religion as g ON g.religionid = p.religionid
+                        LEFT JOIN param_rashi as r ON r.rashiid = p.rashiid
+                        LEFT JOIN param_stars as s ON s.starid = p.starid
+                        LEFT JOIN param_communities as c ON c.commid = p.commid
                         WHERE p.id='$id'";
             $res = $this->db->query($qst);
             $data = $this->change2Array($res);
@@ -80,13 +82,13 @@ class Profile
             if($subsectid=='A') { $subsect = NULL; } 
             else { $subsect = 'AND p.subsectid = '.$subsectid; }
             $qst ="SELECT p.*, TIMESTAMPDIFF(YEAR, p.dob, CURDATE()) AS age,
-                e.category, j.job_type, g.gothram, r.rashi_eng, s.star_eng, c.name_english FROM profiles as p
-                LEFT JOIN m_edutype as e ON e.eduid = p.eduid
-                LEFT JOIN m_jobtype as j ON j.jobid = p.jobid
-                LEFT JOIN m_gothram as g ON g.gotraid = p.gothraid
-                LEFT JOIN m_rashi as r ON r.rashiid = p.rashiid
-                LEFT JOIN m_stars as s ON s.starid = p.starid
-                LEFT JOIN m_subsect as c ON c.subsectid = p.subsectid
+                e.category, j.category, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english FROM seekers as p
+                LEFT JOIN param_educategory as e ON e.eduid = p.eduid
+                LEFT JOIN param_jobcategory as j ON j.jobid = p.jobid
+                LEFT JOIN param_religion as g ON g.religionid = p.religionid
+                LEFT JOIN param_rashi as r ON r.rashiid = p.rashiid
+                LEFT JOIN param_stars as s ON s.starid = p.starid
+                LEFT JOIN param_communities as c ON c.commid = p.commid
                 WHERE p.status = 'A' 
                   AND p.gender = '$gender'
                   AND TIMESTAMPDIFF(YEAR, p.dob, now()) >= $agefrom
@@ -106,12 +108,14 @@ class Profile
         if($id>0) {
             $limits = '';
             if($limit>0) $limits = " LIMIT $limit";
-            $qst = "SELECT p.*, e.category, g.gothram, r.rashi_eng, s.star_eng, c.name_english FROM profiles as p
-            LEFT JOIN m_edutype as e ON e.eduid = p.eduid
-            LEFT JOIN m_gothram as g ON g.gotraid = p.gothraid
-            LEFT JOIN m_rashi as r ON r.rashiid = p.rashiid
-            LEFT JOIN m_stars as s ON s.starid = p.starid
-            LEFT JOIN m_subsect as c ON c.subsectid = p.subsectid
+            $qst = "SELECT p.*, e.category, j.category, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
+            FROM seekers as p
+            LEFT JOIN param_educategory as e ON e.eduid = p.eduid
+            LEFT JOIN param_jobcategory as j ON j.jobid = p.jobid
+            LEFT JOIN param_religion as g ON g.religionid = p.religionid
+            LEFT JOIN param_rashi as r ON r.rashiid = p.rashiid
+            LEFT JOIN param_stars as s ON s.starid = p.starid
+            LEFT JOIN param_communities as c ON c.commid = p.commid
             WHERE p.status = 'A' 
               AND p.subsectid = $id
             ORDER BY p.id DESC".$limits;
@@ -127,8 +131,8 @@ class Profile
 
     public function create($data) {
         if(is_array($data)) {
-            $qst = "INSERT INTO profiles(passwd, added_by, name, gender, dob, email, mobile) 
-                    VALUES ('{$data['passwd']}', '{$data['added_by']}', '{$data['name']}',
+            $qst = "INSERT INTO seekers(added_by, name, gender, dob, email, mobile) 
+                    VALUES ('{$data['added_by']}', '{$data['name']}',
                     '{$data['gender']}', '{$data['dob']}', '{$data['email']}', '{$data['mobile']}' 
                     )";
             $this->db->query($qst);
@@ -140,7 +144,7 @@ class Profile
 
     public function edit($data, $id) {
         if(($data!='') && ($id>0)) {
-            $qst = "UPDATE profiles SET ".$data." WHERE id = ".$id;
+            $qst = "UPDATE seekers SET ".$data." WHERE id = ".$id;
             $this->db->query($qst);
            // $this->writelog($id);
 
@@ -152,7 +156,7 @@ class Profile
 
     public function reActivate($id) {
         if ($id>0) {
-            $qst = "UPDATE profiles SET status='A' WHERE id = ".$id;
+            $qst = "UPDATE seekers SET status='A' WHERE id = ".$id;
             $this->db->query($qst);
            // $this->writelog($id);
 
@@ -164,7 +168,7 @@ class Profile
 
     public function pending($id) {
         if ($id>0) {
-            $qst = "UPDATE profiles SET status='P' WHERE id = ".$id;
+            $qst = "UPDATE seekers SET status='P' WHERE id = ".$id;
             $this->db->query($qst);
             return true;
         }
@@ -174,7 +178,7 @@ class Profile
 
     public function suspend($id) {
         if ($id>0) {
-            $qst = "UPDATE profiles SET status='S' WHERE id = ".$id;
+            $qst = "UPDATE seekers SET status='S' WHERE id = ".$id;
             $this->db->query($qst);
            // $this->writelog($id);
 
@@ -186,7 +190,7 @@ class Profile
 
     public function delete($id) {
         if ($id>0) {
-            $qst = "UPDATE profiles SET status='D' WHERE id = ".$id;
+            $qst = "UPDATE seekers SET status='D' WHERE id = ".$id;
             $this->db->query($qst);
           //  $this->writelog($id);
 
@@ -198,7 +202,7 @@ class Profile
 
     public function addPhoto($image,$id) {
         if ($id>0) {
-            $qst = "UPDATE profiles SET picture='$image' WHERE id = ".$id;
+            $qst = "UPDATE seekers SET picture='$image' WHERE id = ".$id;
             $this->db->query($qst);
             return true;
         }
@@ -207,7 +211,7 @@ class Profile
 
     public function removePhoto($id) {
         if ($id>0) {
-            $qst = "UPDATE profiles SET picture=NULL WHERE id = ".$id;
+            $qst = "UPDATE seekers SET picture=NULL WHERE id = ".$id;
             $this->db->query($qst);
             return true;
         }
@@ -229,7 +233,7 @@ class Profile
 
     private function readlog($id) {
         if (($id>0) && ($this->user>0)) {
-            $qst = "INSERT INTO zreadlog (usrid, profid) 
+            $qst = "INSERT INTO user_viewlog (usrid, seekerid) 
                     VALUES ('$this->user','$id')";
             $this->db->query($qst);
 

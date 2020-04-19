@@ -8,11 +8,9 @@ function initLogin($user, $passwd, $db, $session) {
 	if(isset($user) && isset($passwd)) 	{
 		 
 		//sanitize
-        $user = $db->real_escape_string($user);
-        $gender = strtoupper(substr($user,0,1));
-        $profid = substr($user,1);
+        $email = $db->real_escape_string($user);
 		//querystring.
-		$qst = "SELECT status,passwd,name,email FROM profiles WHERE id='$profid' AND gender='$gender'";
+		$qst = "SELECT id,status,passwd,display_name, FROM user_accounts WHERE email='$email'";
 		if(!$res = $db->query($qst)) {
 		    die('There was an error running the query [' . $db->error . ']');
 		}
@@ -24,13 +22,13 @@ function initLogin($user, $passwd, $db, $session) {
 		   $row = $res->fetch_assoc();
 		   if (password_verify($passwd, $row['passwd'])) {
 			$session->refresh();
-			$session->put("mylai.user", true);
+			$session->put("vivah.user", true);
 							
 			//you can register what ever you want...
-			$session->put("user.id", $profid);
+			$session->put("user.id", $row["id"]);
 			$session->put("user.status", $row['status']);
-			$session->put("display.name", $row["name"]);
-			$session->put("user.email", $row["email"]);
+			$session->put("display.name", $row["display_name"]);
+			$session->put("user.email", $email);
 			$session->put("msg", "");
 		  } else {
 			$session->put("msg", "<b>Incorrect Log-in</b>, Please try again.");
@@ -51,7 +49,7 @@ function initLogin($user, $passwd, $db, $session) {
 function changePwd($uid, $passwd, $db,$oldpwd) {
 	if (($uid>0) && (strlen($passwd)>3) ) {
 		// verify old password
-		$qst = "SELECT passwd FROM profiles WHERE id='$uid'";
+		$qst = "SELECT passwd FROM user_accounts WHERE id='$uid'";
 		$res = $db->query($qst);
 		$num_rows = $res->num_rows;
 		if ($num_rows > 0) 
@@ -59,7 +57,7 @@ function changePwd($uid, $passwd, $db,$oldpwd) {
 			$res->data_seek(0);
 			$row = $res->fetch_assoc();
 			if (password_verify($oldpwd, $row['passwd'])) {
-				$sql = "UPDATE profiles SET passwd='$passwd' WHERE id='$uid'";
+				$sql = "UPDATE user_accounts SET passwd='$passwd' WHERE id='$uid'";
 				$res1 = $db->query($sql);
 				if($res1) return true;
 			}
@@ -75,7 +73,7 @@ function setToken($uid,$db) {
 		// set token
 		$ip = getIp();
 		$hash = md5(uniqid(rand(), true));
-		$qst = "INSERT INTO user_forgotpwd (profile_id, pwdtoken, request_from) VALUES ('$uid','$hash','$ip')";
+		$qst = "INSERT INTO user_forgotpwd (usr_id, pwdtoken, request_from) VALUES ('$uid','$hash','$ip')";
 		$res = $db->query($qst);
 
 		if ($res) return $hash;

@@ -10,48 +10,64 @@ class Master
         $this->db->set_charset("utf8");
     }
 
-    public function getSubsectList() {
-        $qst = "SELECT * FROM m_subsect";
+    public function getCommunities() {
+        $qst = "SELECT * FROM param_communities WHERE parentid=0";
         $res = $this->db->query($qst);
         $data = $this->change2Array($res);
 
         return $data;
     }
 
-    public function getStarsList() {
-        $qst = "SELECT starid, star_eng FROM m_stars";
+    public function getSubCommunities($parent) {
+        $qst = "SELECT * FROM param_communities WHERE parentid=".$parent;
         $res = $this->db->query($qst);
         $data = $this->change2Array($res);
 
         return $data;
     }
 
-    public function getRashiList() {
-        $qst = "SELECT rashiid, rashi_eng FROM m_rashi";
+    public function getStars() {
+        $qst = "SELECT * FROM param_stars";
         $res = $this->db->query($qst);
         $data = $this->change2Array($res);
 
         return $data;
     }
 
-    public function getGothramList() {
-        $qst = "SELECT * FROM m_gothram";
+    public function getRashis() {
+        $qst = "SELECT * FROM param_rashi";
         $res = $this->db->query($qst);
         $data = $this->change2Array($res);
 
         return $data;
     }
 
-    public function getEduTypeList() {
-        $qst = "SELECT * FROM m_edutype";
+    public function getReligions() {
+        $qst = "SELECT * FROM param_religion";
         $res = $this->db->query($qst);
         $data = $this->change2Array($res);
 
         return $data;
     }
 
-    public function getJobTypeList() {
-        $qst = "SELECT * FROM m_jobtype";
+    public function getMaritalStatuses() {
+        $qst = "SELECT * FROM param_mstatus";
+        $res = $this->db->query($qst);
+        $data = $this->change2Array($res);
+
+        return $data;
+    }
+
+    public function getEduCategories() {
+        $qst = "SELECT * FROM param_educategory";
+        $res = $this->db->query($qst);
+        $data = $this->change2Array($res);
+
+        return $data;
+    }
+
+    public function getJobCategories() {
+        $qst = "SELECT * FROM param_jobcategory";
         $res = $this->db->query($qst);
         $data = $this->change2Array($res);
 

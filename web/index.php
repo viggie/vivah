@@ -26,7 +26,7 @@ if (!empty($user)) {
 	}
 }
 
-$chk_login = $session->get('mylai.user');
+$chk_login = $session->get('vivah.user');
 if(!$chk_login) {
 }
 
