@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 19, 2020 at 05:35 PM
+-- Generation Time: Apr 20, 2020 at 05:46 PM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
@@ -219,7 +219,7 @@ CREATE TABLE `seekers` (
   `mother_name` varchar(150) DEFAULT NULL,
   `mother_job` varchar(150) DEFAULT NULL,
   `preferences` text,
-  `status` enum('A','P','S','D') NOT NULL DEFAULT 'A' COMMENT 'Active, Pending, Suspend, Delete'
+  `status` enum('A','P','S','D','N') NOT NULL DEFAULT 'A' COMMENT 'Active, Pending, Suspend, Delete, New'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Match Seekers Profile';
 
 -- --------------------------------------------------------

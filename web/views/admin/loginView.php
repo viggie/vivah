@@ -53,7 +53,7 @@ $url = BASE_URL;
 	  </h2>
 	  <div class="card p-4">
 		<h3>Log in</h3>
- 		<form name="log_in" class="form mt-3" action="<?php echo ADMIN_URL; ?>" method="post">
+ 		<form name="log_in" class="form mt-3" action="<?php echo BASE_URL . '/'. ADMIN_URL; ?>" method="post">
 			<div class="form-group">
 			 <div class="input-group">
 			   <div class="input-group-prepend">

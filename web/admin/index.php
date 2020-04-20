@@ -32,14 +32,14 @@ if(!$chk_login) {
 
 if(isset($task) && ($task=='logout')) {
     $session->forget();
-    header("Location: ".ADMIN_URL);
+    header("Location: ". BASE_URL . '/' .ADMIN_URL);
 }
 
 
 // Models
 include(MODEL.'profile.php');
 include(MODEL.'masters.php');
-include(MODEL.'userpay.php');
+include(MODEL.'user.php');
 // Views
 require VIEW.'admin/indexView.php';
 
@@ -57,7 +57,7 @@ if (isset($task)) {
 			$id = trim($db->real_escape_string($_POST['id']));
 		} else {
 			$session->put('msg','Incorrect ID to Edit Profile');
-			header("Location: ".BASE_URL.ADMIN_URL.'/profiles');
+			header("Location: ".BASE_URL . '/' . ADMIN_URL.'/profiles');
 		}
 		$masters = new Vi\Model\Master($db);
 		include('adm_inc/editprofile.php');
@@ -68,7 +68,7 @@ if (isset($task)) {
 			$id = trim($db->real_escape_string($_POST['id']));
 		} else {
 			$session->put('msg','Incorrect ID to View Profile');
-			header("Location: ".BASE_URL.ADMIN_URL.'/profiles');
+			header("Location: ".BASE_URL. '/' .ADMIN_URL.'/profiles');
 		}
 		$data = array(
 			'session'  => $session,
@@ -84,7 +84,7 @@ if (isset($task)) {
 			$st = trim($db->real_escape_string($_POST['status']));
 		} else {
 			$session->put('msg','Incorrect ID to Change Status');
-			header("Location: ".BASE_URL.ADMIN_URL.'/profiles');
+			header("Location: ".BASE_URL . '/' . ADMIN_URL.'/profiles');
 		}
 		$stnam['P'] = 'pending';
 		$stnam['A'] = 'reActivate';
@@ -94,7 +94,7 @@ if (isset($task)) {
 
 		$changed = $profile->$cv($id);
 		if($changed) $session->put('msg','Status Changed Successfully');
-		header("Location: ".BASE_URL.ADMIN_URL.'/profiles');   
+		header("Location: ".BASE_URL . '/' . ADMIN_URL.'/profiles');   
 		break;
 
 		case 'profiles' :

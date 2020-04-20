@@ -34,10 +34,11 @@ class indexView extends AdminView
 
         if(is_array($paidusers)) {
             foreach($paidusers as $pu) {
-                switch ($pu['plan']) {
-                    case 'S': $paiduser_stats .= '<span class="badge badge-warning float-right">'.$pu['cou'].'</span> Silver : '; break;
-                    case 'G': $paiduser_stats .= '<span class="badge badge-warning float-right">'.$pu['cou'].'</span> Gold : '; break;
-                    case 'P': $paiduser_stats .= '<span class="badge badge-warning float-right">'.$pu['cou'].'</span> Platinum : '; break;
+                switch ($pu['status']) {
+                    case 'A': $paiduser_stats .= '<span class="badge badge-warning float-right">'.$pu['cou'].'</span> Active : '; break;
+                    case 'P': $paiduser_stats .= '<span class="badge badge-warning float-right">'.$pu['cou'].'</span> Pending : '; break;
+                    case 'S': $paiduser_stats .= '<span class="badge badge-warning float-right">'.$pu['cou'].'</span> Suspended : '; break;
+                    case 'D': $paiduser_stats .= '<span class="badge badge-warning float-right">'.$pu['cou'].'</span> Deleted : '; break;
                 }
                 $paiduser_stats .= '<br>';
                 $totpaidusers += $pu['cou'];
@@ -63,7 +64,7 @@ class indexView extends AdminView
 
          <div class="col-sm-4 pt-1">
            <div class="card border-success" style="width:150px;">
-           <div class="card-header bg-success text-light"> Paid Users <span class="badge badge-light float-right">'.$totpaidusers.'</span> 
+           <div class="card-header bg-success text-light"> Users <span class="badge badge-light float-right">'.$totpaidusers.'</span> 
            </div>
            <div class="card-body"> 
              <p class="lead"><b> '. $paiduser_stats .' </b></p>
