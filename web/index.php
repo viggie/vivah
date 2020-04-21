@@ -46,6 +46,6 @@ $data = array (
   'loggedin' => $chk_login,
   'session' => $session,
   'msg'		 => $msg,
-  'subsect' => $masters->getSubsectList()
+  'community' => $masters->getCommunities()
 );
 $view->index($data);

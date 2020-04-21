@@ -9,7 +9,7 @@
 include('base-config.php');
 
 // Site Meta
-define('SITENAME', 'Matrimony Site');
+define('SITENAME', 'Vivah - Matrimony');
 define('SLOGAN', 'Matrimony website for South India');
 define('KEYWORDS', 'matrimony, match making, bride, groom, arranged marriage');
 define('DESCRIPTION', 'Matrimony website specifically designed for South Indian marriages with religious & community based classifications.');

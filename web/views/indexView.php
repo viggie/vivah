@@ -13,13 +13,13 @@ class indexView extends siteView
     public function index($data) {
         $loggedin  = $data['loggedin'];
         $session   = $data['session'];
-        $subsectlist = $data['subsect'];
+        $communities = $data['community'];
         //$starlist  = $data['starlist'];
         if ($data['msg'] != '') {
           $content = '<script type="text/javscript"> alert("'. $data['msg'] .'"); </script>';
         } else { $content = ''; }
 
-        $search_form = $this->searchForm($subsectlist,'');
+        $search_form = $this->searchForm($communities,'');
 
         $sliders = '
        <div id="hoverSearch">
@@ -64,7 +64,7 @@ class indexView extends siteView
       <div class="col-sm order-last">
         
         <div class="card border-danger mb-3">
-        <div class="card-header bg-danger text-light"> Register your Profile </div>
+        <div class="card-header bg-danger text-light"><h4 class="m-0"> Register your Profile </h4></div>
         <div class="card-body"> 
         '. $regForm .'
         </div>

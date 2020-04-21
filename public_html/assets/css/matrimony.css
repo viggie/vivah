@@ -1,8 +1,8 @@
 body {
   overflow-x: hidden;
-  font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
-h1,h2,h3 { font-family: 'Roboto Slab', sans-serif; }
+h1,h2,h3,h4 { font-family: 'Roboto Slab', sans-serif; }
 
 /* Nav */
 #mainNav .nav-link {
@@ -22,7 +22,7 @@ h1,h2,h3 { font-family: 'Roboto Slab', sans-serif; }
    height: 70px;
 }
 
-#headerMargin { margin-top:1.5em; }
+#headerMargin { margin-top:4em; }
 
 @media (max-width: 500px) {
   .navbar-brand { max-width: 80%; }
@@ -32,15 +32,14 @@ h1,h2,h3 { font-family: 'Roboto Slab', sans-serif; }
 
 /* Page header */
 .page-header {
-  background: url('../images/header-bg.jpg') no-repeat bottom;
+  background-color:#ffc107;
 }
 .page-header h1 {
-  color: #efefef;
-  font-family: 'Oswald', sans-serif;
+  color: #dc3545;
+  font-family: 'Roboto Slab', sans-serif;
   text-align: center;
-  letter-spacing: 0.3rem;
+  letter-spacing: 0.1rem;
   text-transform: uppercase;
-  font-size: 48px;
 }
 
 h2, h3, h4, h5, h6 { font-weight: 600; }

@@ -16,7 +16,7 @@ public function the_header($title=SLOGAN,$keyword=KEYWORDS, $desc=DESCRIPTION,$i
   $ogimg = 'assets/images/favicon.png';
   $ogurl = $url.$_SERVER['REQUEST_URI'];
 
-  $loggedin = $session->get('mylai.user');
+  $loggedin = $session->get('vivah.user');
   
 
 $html = <<<END
@@ -43,7 +43,7 @@ $html = <<<END
 
     <!-- Custom fonts for this template -->
     <script src="https://kit.fontawesome.com/e2ad5cd9b0.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Slab&display=swap" rel="stylesheet"> 
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="$url/vendor/DataTables/datatables.min.css"/>
@@ -154,7 +154,6 @@ $html = <<<END
             <div class="col">
             <h3> Information </h3>
             <ul class="footer-list list-unstyled">
-              <li><a href="$url/schemes-tariffs">Schemes & Tariffs</a></li>
               <li><a href="$url/about-us">About Us</a></li>
             </ul>
            </div>
@@ -162,8 +161,6 @@ $html = <<<END
             <h3> Help & Support </h3>
             <ul class="footer-list list-unstyled">
               <li><a href="$url/contact">Contact Us</a></li>
-              <li><a href="$url/feedback">Feedback</a></li>
-              <li><a href="$url/technical-support">Technical Support</a></li>
             </ul>
            </div>
             <div class="col">
@@ -184,7 +181,7 @@ $html = <<<END
             <span class="copyright">Copyright &copy; 2019 $sitename</span>
           </div>
           <div class="col-md-4">
-            <a href="$url/privacy-policy">Privacy Policy</a>
+            <a href="$url/about-us/privacy-policy">Privacy Policy</a>
           </div>
           <div class="col-md-4 text-right">
           <ul class="list-inline social-buttons">
@@ -291,10 +288,10 @@ END;
 }
 
 
-public function searchForm($subsectlist,$formdata='') {
+public function searchForm($communities,$formdata='') {
   $url = BASE_URL;
 
-  $gender = $subsectid = $from_range = $to_range = '';
+  $gender = $commid = $from_range = $to_range = '';
   $gselect = $bselect = $fromselect = $toselect = ''; 
   $agefrom = 21; $ageto = 24;
   $lowend = 18;
@@ -303,7 +300,7 @@ public function searchForm($subsectlist,$formdata='') {
     $gender  = $formdata['gender'];
     $agefrom = $formdata['agefrom'];
     $ageto   = $formdata['ageto'];
-    $subsectid = $formdata['subsectid'];
+    $commid = $formdata['commid'];
 
     if($gender=='G') $gselect = 'selected';
     if($gender=='B') {
@@ -312,7 +309,7 @@ public function searchForm($subsectlist,$formdata='') {
     } 
   }
 
-  $subsect_range = $this->select_options($subsectlist,$subsectid);
+  $community_range = $this->select_options($communities,$commid);
   for ($i=$lowend;$i<=58;$i++) {
     if($i==$agefrom) $fromselect = 'selected';
     if($i==$ageto)   $toselect = 'selected';
@@ -346,10 +343,10 @@ public function searchForm($subsectlist,$formdata='') {
            </select>
          </div>
          <div class="form-group mb-2 ml-2">
-           <label class="sr-only" for="starid">Star</label>
-           <select name="subsectid" class="form-control">
+           <label class="sr-only" for="commid">Communities</label>
+           <select name="commid" class="form-control">
              <option value="A"> Select All </option>
-           '. $subsect_range .'
+           '. $community_range .'
            </select>
          </div>
          <div class="form-group mb-2 ml-2">
