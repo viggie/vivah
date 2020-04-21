@@ -22,3 +22,4 @@ define('DB_NAME', 'vhosts_vivah');
 define('DB_USER', 'viggie');
 define('DB_PASS', 'vi');
 define('DB_HOST', 'localhost');
+// Email details
