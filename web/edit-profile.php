@@ -77,7 +77,7 @@ if (isset($_POST['formnum'])) {
             $sisters  = trim($db->real_escape_string($_POST['sisters']));
 
             $data = "father_name='$father_name', father_job='$father_job', mother_name='$mother_name', mother_job='$mother_job',
-            brothers='$brothers', sisters='$sisters'";
+            brothers='$brothers', sisters='$sisters' ";
             $res = $profile->edit($data, $uid);
 
 			if($res) {
@@ -101,7 +101,7 @@ if (isset($_POST['formnum'])) {
     		$astro_pic = trim($db->real_escape_string($_POST['astro_pic']));
 
 
-            $data = "height='$height', weight='$weight', complexion='$complexion', mother_tongue='$mother_tongue',
+            $data = "height='$height', weight='$weight', mother_tongue='$mother_tongue',
             commid='$commid', religionid='$religionid', starid='$starid', rashiid='$rashiid' ";
             $res = $profile->edit($data, $uid);
 

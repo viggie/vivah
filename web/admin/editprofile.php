@@ -10,13 +10,9 @@ if (isset($_POST['formnum'])) {
     switch ($_POST['formnum']) {
         case 5:
         // Preferences
-    		$prefer_edu = trim($db->real_escape_string($_POST['prefer_edu']));
-	    	$prefer_job  = trim($db->real_escape_string($_POST['prefer_job']));
-	    	$prefer_subsect  = trim($db->real_escape_string($_POST['prefer_subsect']));
     		$preferences    = trim($db->real_escape_string($_POST['preferences']));
 
-
-            $data = "prefer_edu='$prefer_edu', prefer_job='$prefer_job', prefer_subsect='$prefer_subsect', preferences='$preferences' ";
+            $data = "preferences='$preferences' ";
             $res = $profile->edit($data, $uid);
 
 			if($res) {
@@ -36,11 +32,9 @@ if (isset($_POST['formnum'])) {
 
             $brothers = trim($db->real_escape_string($_POST['brothers']));
             $sisters  = trim($db->real_escape_string($_POST['sisters']));
-    		$family_status = trim($db->real_escape_string($_POST['family_status']));
-
 
             $data = "father_name='$father_name', father_job='$father_job', mother_name='$mother_name', mother_job='$mother_job',
-            brothers='$brothers', sisters='$sisters', family_status='$family_status' ";
+            brothers='$brothers', sisters='$sisters' ";
             $res = $profile->edit($data, $uid);
 
 			if($res) {
@@ -55,18 +49,16 @@ if (isset($_POST['formnum'])) {
         // Personal
     		$height = trim($db->real_escape_string($_POST['height']));
 	    	$weight = trim($db->real_escape_string($_POST['weight']));
-	    	$complexion = trim($db->real_escape_string($_POST['complexion']));
     		$mother_tongue = trim($db->real_escape_string($_POST['mother_tongue']));
 
-            $subsectid = trim($db->real_escape_string($_POST['subsectid']));
-    		$gothramid = trim($db->real_escape_string($_POST['gothramid']));
+            $commid = trim($db->real_escape_string($_POST['commid']));
+    		$religionid = trim($db->real_escape_string($_POST['religionid']));
 	    	$starid  = trim($db->real_escape_string($_POST['starid']));
 	    	$rashiid = trim($db->real_escape_string($_POST['rashiid']));
     		$astro_pic = trim($db->real_escape_string($_POST['astro_pic']));
 
-
-            $data = "height='$height', weight='$weight', complexion='$complexion', mother_tongue='$mother_tongue',
-            subsectid='$subsectid', gothraid='$gothramid', starid='$starid', rashiid='$rashiid' ";
+            $data = "height='$height', weight='$weight', mother_tongue='$mother_tongue',
+            commid='$commid', religionid='$religionid', starid='$starid', rashiid='$rashiid' ";
             $res = $profile->edit($data, $uid);
 
 			if($res) {
@@ -78,15 +70,14 @@ if (isset($_POST['formnum'])) {
 
         case 2:
         // Edu
-    		$eduid  = trim($db->real_escape_string($_POST['eduid']));
-	    	$edu_details = trim($db->real_escape_string($_POST['edu_details']));
-	    	$jobid  = trim($db->real_escape_string($_POST['jobid']));
-    		$job_title   = trim($db->real_escape_string($_POST['job_title']));
-   			$job_salary  = trim($db->real_escape_string($_POST['job_salary']));
+		$eduid  = trim($db->real_escape_string($_POST['eduid']));
+		$edu_details = trim($db->real_escape_string($_POST['edu_details']));
+		$jobid  = trim($db->real_escape_string($_POST['jobid']));
+		$job_title   = trim($db->real_escape_string($_POST['job_title']));
+	    $job_salary  = trim($db->real_escape_string($_POST['job_salary']));
 
-
-            $data = "eduid='$eduid', edu_details='$edu_details', jobid='$jobid', job_title='$job_title', job_salary='$job_salary' ";
-            $res = $profile->edit($data, $uid);
+		$data = "eduid='$eduid', education='$edu_details', jobid='$jobid', job_title='$job_title', job_salary='$job_salary' ";
+		$res = $profile->edit($data, $uid);
 
 			if($res) {
 				$msg = 'Profile Education &amp; Job Details updated';
@@ -129,12 +120,13 @@ $data = array (
     'session'  => $session,
     'msg'	   => $msg,
     'formnum'  => $formnum,
-    'edutype'  => $masters->getEduTypeList(),
-    'jobtype'  => $masters->getJobTypeList(),
-    'gothram'  => $masters->getGothramList(),
-    'subsect'  => $masters->getSubsectList(),
-    'stars'    => $masters->getStarsList(),
-    'rashi'    => $masters->getRashiList(),
+    'edutype'  => $masters->getEduCategories(),
+    'jobtype'  => $masters->getJobCategories(),
+    'religion'  => $masters->getReligions(),
+    'community'  => $masters->getCommunities(),
+    'mstatus'  => $masters->getMaritalStatuses(),
+    'stars'    => $masters->getStars(),
+    'rashi'    => $masters->getRashis(),
     'profile'  => $profile->get($id)
 );
 $view->editProfile($data);

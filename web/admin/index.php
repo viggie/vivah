@@ -60,7 +60,7 @@ if (isset($task)) {
 			header("Location: ".BASE_URL . '/' . ADMIN_URL.'/profiles');
 		}
 		$masters = new Vi\Model\Master($db);
-		include('admin/editprofile.php');
+		include(CONTROLLER.'admin/editprofile.php');
 		break;
 
 		case 'view-profile' :

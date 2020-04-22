@@ -20,7 +20,7 @@ class indexView extends AdminView
 
         if(is_array($counts)) {
             foreach($counts as $cou) {
-                switch ($cou['status']) {
+                switch ($cou['statusid']) {
                     case 'A': $profile_stats .= '<span class="badge badge-warning float-right">'.$cou['totall'].'</span> Active : '; break;
                     case 'P': $profile_stats .= '<span class="badge badge-warning float-right">'.$cou['totall'].'</span> Pending : '; break;
                     case 'S': $profile_stats .= '<span class="badge badge-warning float-right">'.$cou['totall'].'</span> Suspended : '; break;
@@ -105,14 +105,14 @@ class indexView extends AdminView
               case 'D': $status = '<span class="badge badge-danger">Deleted</span>'; break;
             }
             $pflist .= '<tr><td>'.$prof['gender'].$prof['id'].'</td><td>'.$status.'</td><td>'.
-            date('d-m-Y',strtotime($prof['added_on'])).'</td><td class="text-nowrap">'.$prof['name'].
+            date('d-m-Y',strtotime($prof['joined_on'])).'</td><td class="text-nowrap">'.$prof['name'].
             '</td>';
-            $pflist .= '<td> <form action="'.ADMIN_URL.'/view-profile" class="d-inline mr-3" method="POST">
+            $pflist .= '<td> <form action="'.BASE_URL.'/'.ADMIN_URL.'/view-profile" class="d-inline mr-3" method="POST">
             <input type="hidden" name="id" value="'.$prof['id'].'">
             <button type="submit" class="btn btn-primary" name="submit" title="View"><i class="far fa-address-card"></i></button>
             </form> 
             ';
-            $pflist .= '<form action="'.ADMIN_URL.'/edit-profile" class="d-inline" method="POST">
+            $pflist .= '<form action="'.BASE_URL.'/'.ADMIN_URL.'/edit-profile" class="d-inline" method="POST">
             <input type="hidden" name="id" value="'.$prof['id'].'">
             <button type="submit" class="btn btn-warning" name="submit" title="Edit"><i class="far fa-edit"></i></button>
             </form> 
@@ -165,7 +165,7 @@ class indexView extends AdminView
       foreach($stnam as $key => $stat) {
         if($key == $profile['status']) continue;
         $statusbtn .= '
-        <form action="'.ADMIN_URL.'/change-status" class="d-inline mr-3" method="POST">
+        <form action="'.BASE_URL.'/'.ADMIN_URL.'/change-status" class="d-inline mr-3" method="POST">
         <input type="hidden" name="id" value="'.$profile['id'].'">
         <input type="hidden" name="status" value="'. $key .'">
         <button type="submit" class="btn btn-primary" name="submit" title="change to Pending">
@@ -179,7 +179,7 @@ class indexView extends AdminView
       $content =  '
         <div class="row bg-warning pt-2 mb-3">
          <div class="col-md-12">
-           <form action="'.ADMIN_URL.'/edit-profile" class="d-inline float-right" method="POST">
+           <form action="'.BASE_URL.'/'.ADMIN_URL.'/edit-profile" class="d-inline float-right" method="POST">
            <input type="hidden" name="id" value="'.$profile['id'].'">
            <button type="submit" class="btn btn-danger" name="submit" title="Edit">
            <i class="far fa-edit"></i> Edit this Profile</button>
@@ -212,27 +212,21 @@ class indexView extends AdminView
           return "Nothing to show here.";
       }
       
-      if($profile['picture']=='') {
+      if($profile['photo']=='') {
         $img = BASE_URL.'/images/'.$profile['gender']."ph.png";
       } else {
-        $img = BASE_URL.'/profile/'.$profile['picture'];
+        $img = BASE_URL.'/profile/'.$profile['photo'];
       }
       $profid =  $profile['gender'] .  $profile['id'];
       
-      if ($profile['gender']=='G') { $gender = 'Girl';
-      } else { $gender = 'Boy'; }
+      if ($profile['gender']=='F') { $gender = 'Woman';
+      } else { $gender = 'Man'; }
       
-      switch ($profile['marriage_statusid']) {
+      switch ($profile['statusid']) {
         case 'W': $mstatus = 'Widow'; if($profile['gender']=='B') $mstatus = 'Widower'; break;
         case 'D': $mstatus = 'Divorced'; break;
         case 'S': $mstatus = 'Separated'; break;
         default : $mstatus = 'Never Married'; break;
-      }
-      switch ($profile['complexion']) {
-        case 'V': $complxn = 'Very Fair'; break;
-        case 'F': $complxn = 'Fair'; break;
-        case 'M': $complxn = 'Medium'; break;
-        default : $complxn = 'Fair'; break;
       }
       $stnam['N'] = 'New';
       $stnam['P'] = 'Pending';
@@ -295,9 +289,9 @@ class indexView extends AdminView
       <div class="card-header bg-danger text-light"> Education &amp; Job </div>
       <div class="card-body"> 
         <div class="row">
-          <div class="col-sm-4"> Education </div>  <div class="col-sm-8"> '.$profile['category'] .'</div>
-          <div class="col-sm-4"> &nbsp; </div>  <div class="col-sm-8"> '.$profile['edu_details'] .'</div>
-          <div class="col-sm-4"> Job </div>  <div class="col-sm-8"> '.$profile['job_type'] .'</div>
+          <div class="col-sm-4"> Education </div>  <div class="col-sm-8"> '.$profile['educategory'] .'</div>
+          <div class="col-sm-4"> &nbsp; </div>  <div class="col-sm-8"> '.$profile['education'] .'</div>
+          <div class="col-sm-4"> Job </div>  <div class="col-sm-8"> '.$profile['jobcategory'] .'</div>
           <div class="col-sm-4"> Salary </div>  <div class="col-sm-8"> '.$profile['job_salary'] .'</div>
         </div>
       </div>
@@ -312,7 +306,6 @@ class indexView extends AdminView
         <div class="row">
           <div class="col-sm-4"> Height </div> <div class="col-sm-8"> '.$profile['height'] .'</div>
           <div class="col-sm-4"> Weight </div> <div class="col-sm-8"> '.$profile['weight'] .'</div>
-          <div class="col-sm-4"> Complexion </div> <div class="col-sm-8"> '.$complxn .'</div>
           <div class="col-sm-4"> Mother Tongue </div> <div class="col-sm-8"> '.$profile['mother_tongue'] .'</div>
         </div>
       </div>
@@ -330,8 +323,8 @@ class indexView extends AdminView
       <div class="card-header bg-danger text-light"> Lineage &amp; Horoscope </div>
       <div class="card-body"> 
         <div class="row">
-          <div class="col-sm-4"> Subsect </div> <div class="col-sm-8"> '.$profile['name_english'] .'</div>
-          <div class="col-sm-4"> Gothram </div> <div class="col-sm-8"> '.$profile['gothram'] .'</div>
+          <div class="col-sm-4"> Community </div> <div class="col-sm-8"> '.$profile['name_english'] .'</div>
+          <div class="col-sm-4"> Religion </div> <div class="col-sm-8"> '.$profile['religion_eng'] .'</div>
           <div class="col-sm-4"> Star </div> <div class="col-sm-8"> '.$profile['star_eng'] .'</div>
           <div class="col-sm-4"> Rashi </div> <div class="col-sm-8"> '.$profile['rashi_eng'] .'</div>
           <div class="col-sm-12"> <img src="'.$profile['astro_pic'] .'" alt="" class="img-fluid"></div>
@@ -350,7 +343,6 @@ class indexView extends AdminView
           <div class="col-sm-4"> Mother </div> <div class="col-sm-8"> '.$profile['mother_name'] .'<br>'.$profile['mother_job'] .'</div>
           <div class="col-sm-4"> Brothers </div> <div class="col-sm-8"> '.$profile['brothers'] .'</div>
           <div class="col-sm-4"> Sisters </div> <div class="col-sm-8"> '.$profile['sisters'] .'</div>
-          <div class="col-sm-4"> Family Status </div> <div class="col-sm-8"> '.$profile['family_status'] .'</div>
         </div>
       </div>
       </div>
@@ -366,13 +358,6 @@ class indexView extends AdminView
       <div class="card-header bg-danger text-light"> Preferences  </div>
       <div class="card-body"> 
         <div class="row">
-        <div class="col-sm">
-          <div class="row">
-          <div class="col-sm-4"> Education </div> <div class="col-sm-8"> '.$profile['prefer_edu'] .'</div>
-          <div class="col-sm-4"> Job / Income </div> <div class="col-sm-8"> '.$profile['prefer_job'] .'</div>
-          <div class="col-sm-4"> Subsect </div> <div class="col-sm-8"> '.$profile['prefer_subsect'] .'</div>
-          </div>
-        </div>
         <div class="col-sm">
           <div class="col-sm-12"> General:<br> '.$profile['preferences'] .'</div>
         </div>
@@ -397,8 +382,8 @@ public function editProfile($data) {
 
     $edutype   = $data['edutype'];
     $jobtype   = $data['jobtype'];
-    $gothram   = $data['gothram'];
-    $subsect   = $data['subsect'];
+    $religion  = $data['religion'];
+    $community = $data['community'];
     $stars     = $data['stars'];
     $rashi     = $data['rashi'];
 
@@ -409,16 +394,16 @@ public function editProfile($data) {
         return "Nothing to show here.";
     }
     
-    if($profile['picture']=='') {
+    if($profile['photo']=='') {
       $img = BASE_URL.'/images/'.$profile['gender']."ph.png";
     } else {
-      $img = BASE_URL.'/profile/'.$profile['picture'];
+      $img = BASE_URL.'/profile/'.$profile['photo'];
     }
     $profid =  $profile['gender'] .  $profile['id'];
     
     if ($profile['gender']=='G') { $gender = 'Girl';
     } else { $gender = 'Boy'; }
-    switch ($profile['marriage_statusid']) {
+    switch ($profile['statusid']) {
       case 'W': $mstatus = 'Widow'; if($profile['gender']=='B') $mstatus = 'Widower'; break;
       case 'D': $mstatus = 'Divorced'; break;
       case 'S': $mstatus = 'Separated'; break;
@@ -440,7 +425,7 @@ public function editProfile($data) {
     $content =  '
     <div class="row bg-warning pt-2 mb-3">
     <div class="col-md-12">
-      <form action="'.ADMIN_URL.'/view-profile" class="d-inline float-right" method="POST">
+      <form action="'.BASE_URL.'/'.ADMIN_URL.'/view-profile" class="d-inline float-right" method="POST">
       <input type="hidden" name="id" value="'.$profile['id'].'">
       <button type="submit" class="btn btn-primary" name="submit" title="Edit">
       <i class="far fa-address-card"></i> View this Profile</button>
@@ -509,7 +494,7 @@ public function editProfile($data) {
 
   <div class="tab-content p-3 mb-3">
    <div class="tab-pane fade '.$pane1.'" id="basic" role="tabpanel" aria-labelledby="edu-tab">
-    <form action="'.ADMIN_URL.'/edit-profile" method="post">
+    <form action="'.BASE_URL.'/'.ADMIN_URL.'/edit-profile" method="post">
      <input type="hidden" name="id" value="'.$profile['id'].'">
      <div class="row">
      '. $this->formBasic($profile) .'
@@ -517,7 +502,7 @@ public function editProfile($data) {
     </form>
    </div>
    <div class="tab-pane fade '.$pane2.'" id="edu" role="tabpanel" aria-labelledby="edu-tab">
-    <form action="'.ADMIN_URL.'/edit-profile" method="post">
+    <form action="'.BASE_URL.'/'.ADMIN_URL.'/edit-profile" method="post">
      <input type="hidden" name="id" value="'.$profile['id'].'">
      <div class="row">
      '. $this->formEdu($profile,$edutype,$jobtype) .'
@@ -525,15 +510,15 @@ public function editProfile($data) {
     </form>
    </div>
    <div class="tab-pane fade '.$pane3.'" id="personal" role="tabpanel" aria-labelledby="personal-tab">
-    <form action="'.ADMIN_URL.'/edit-profile" method="post">
+    <form action="'.BASE_URL.'/'.ADMIN_URL.'/edit-profile" method="post">
      <input type="hidden" name="id" value="'.$profile['id'].'">
      <div class="row">
-     '. $this->formPersonal($profile,$subsect,$gothram,$stars,$rashi) .'
+     '. $this->formPersonal($profile,$community,$religion,$stars,$rashi) .'
      </div>
     </form>
    </div>
    <div class="tab-pane fade '.$pane4.'" id="family" role="tabpanel" aria-labelledby="family-tab">
-    <form action="'.ADMIN_URL.'/edit-profile" method="post">
+    <form action="'.BASE_URL.'/'.ADMIN_URL.'/edit-profile" method="post">
      <input type="hidden" name="id" value="'.$profile['id'].'">
      <div class="row">
      '. $this->formFamily($profile) .'
@@ -541,7 +526,7 @@ public function editProfile($data) {
     </form>
    </div>
    <div class="tab-pane fade '.$pane5.'" id="prefer" role="tabpanel" aria-labelledby="prefer-tab">
-    <form action="'.ADMIN_URL.'/edit-profile" method="post">
+    <form action="'.BASE_URL.'/'.ADMIN_URL.'/edit-profile" method="post">
      <input type="hidden" name="id" value="'.$profile['id'].'">
      <div class="row">
      '. $this->formPrefer($profile) .'
@@ -584,7 +569,7 @@ private function formBasic($profile) {
     array( 'id'=>'D', 'name'=>'Divorced' ),
     array( 'id'=>'S', 'name'=>'Separated' )
   );
-  $mstatuslist = $this->select_options($mstatus,$profile['marriage_statusid']);
+  $mstatuslist = $this->select_options($mstatus,$profile['statusid']);
 
 
   $content = '
@@ -594,10 +579,10 @@ private function formBasic($profile) {
       <div class="col-md-10">
       <div class="btn-group btn-group-toggle mb-2" data-toggle="buttons">
         <label class="btn btn-outline-danger '.$girls.'">
-        <input type="radio" name="gender" id="gen1" value="G" checked> Female
+        <input type="radio" name="gender" id="gen1" value="G" checked> Woman
         </label>
         <label class="btn btn-outline-danger '.$boys.'">
-        <input type="radio" name="gender" id="gen2" value="B" > Male
+        <input type="radio" name="gender" id="gen2" value="B" > Man
         </label>
       </div>
       </div>
@@ -681,8 +666,8 @@ private function formEdu($profile,$edutype,$jobtype) {
       </div>
 
       <div class="form-group">
-       <label for="edu_details" class="form-label"> Education Details </label>
-         <input type="text" class="form-control" name="edu_details" value="'. $profile['edu_details'] .'" placeholder="Degree or Certificate Details"> 
+       <label for="education" class="form-label"> Education Details </label>
+         <input type="text" class="form-control" name="education" value="'. $profile['education'] .'" placeholder="Degree or Certificate Details"> 
       </div>
 
 
@@ -727,19 +712,12 @@ private function formEdu($profile,$edutype,$jobtype) {
 }    
 
 
-private function formPersonal($profile,$subsect,$gothram,$stars,$rashi) {
-  $subsectlist = $this->select_options($subsect,$profile['subsectid']);
-  $gothramlist = $this->select_options($gothram,$profile['gothraid']);
+private function formPersonal($profile,$commid,$religion,$stars,$rashi) {
+  $community = $this->select_options($commid,$profile['commid']);
+  $religion = $this->select_options($religion,$profile['religionid']);
 
   $starlist = $this->select_options($stars,$profile['starid']);
   $rashilist = $this->select_options($rashi,$profile['rashiid']);
-
-  $complexion = array(
-    array( 'id'=>'V', 'name'=>'Very Fair' ),
-    array( 'id'=>'F', 'name'=>'Fair' ),
-    array( 'id'=>'M', 'name'=>'Medium' )
-  );
-  $complexlist = $this->select_options($complexion,$profile['complexion']);
 
   $content = '
     <div class="col-sm">
@@ -755,13 +733,6 @@ private function formPersonal($profile,$subsect,$gothram,$stars,$rashi) {
       </div>
 
       <div class="form-group">
-       <label for="complexion" class="form-label"> Complexion </label>
-        <select name="complexion" class="form-control">
-          '. $complexlist .'
-        </select>
-      </div>
-
-      <div class="form-group">
        <label for="mother_tongue" class="form-label"> Mother Tongue </label>
          <input type="text" class="form-control" name="mother_tongue" value="'. $profile['mother_tongue'] .'" placeholder="Mother Tongue"> 
       </div>
@@ -771,18 +742,18 @@ private function formPersonal($profile,$subsect,$gothram,$stars,$rashi) {
      <div class="col-sm">
 
       <div class="form-group">
-       <label for="subsectid" class="form-label"> Subsect </label>
-       <select name="subsectid" class="form-control">
+       <label for="commid" class="form-label"> Community </label>
+       <select name="commid" class="form-control">
          <option value=""> Select </option>
-       '. $subsectlist .'
+       '. $community .'
        </select>
       </div>
      
       <div class="form-group">
-        <label for="gothramid" class="form-label"> Gothram </label>
-        <select name="gothramid" class="form-control">
+        <label for="religionid" class="form-label"> Religion </label>
+        <select name="religionid" class="form-control">
          <option value=""> Select </option>
-        '. $gothramlist .'
+        '. $religion .'
         </select>
       </div>
 
@@ -866,11 +837,6 @@ private function formFamily($profile) {
          <input type="text" class="form-control" name="sisters" value="'. $profile['sisters'] .'" placeholder="Sisters"> 
       </div>
 
-      <div class="form-group">
-       <label for="family-status" class="form-label"> Family Status (Worth) </label>
-       <input type="text" class="form-control" name="family_status" value="'. $profile['family_status'] .'" placeholder="Family Status"> 
-      </div>
-
 
      </div>
      </div>
@@ -893,21 +859,6 @@ private function formPrefer($profile) {
 
   $content = '
     <div class="col-sm">
-
-      <div class="form-group">
-       <label for="prefer_edu" class="form-label"> Education </label>
-         <input type="text" class="form-control" name="prefer_edu" value="'. $profile['prefer_edu'] .'" placeholder="Education"> 
-      </div>
-
-      <div class="form-group">
-       <label for="prefer_job" class="form-label"> Job / Income </label>
-         <input type="text" class="form-control" name="prefer_job" value="'. $profile['prefer_job'] .'" placeholder="Job Income"> 
-      </div>
-
-      <div class="form-group">
-       <label for="prefer_subsect" class="form-label"> Subsect Preferences </label>
-         <input type="text" class="form-control" name="prefer_subsect" value="'. $profile['prefer_subsect'] .'" placeholder="Indicate Same or multiple choices"> 
-      </div>
 
       <div class="form-group">
        <label for="prefer-general" class="form-label"> General </label>
