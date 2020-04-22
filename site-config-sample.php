@@ -22,3 +22,9 @@ define('DB_NAME', 'vivah');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_HOST', 'localhost');
+
+// Email details for sending email 
+define('MAIL_HOST', '');        // Email sender like smtp.gmail.com
+define('MAIL_USER', '');        // userid - email address
+define('MAIL_PASS', '');        // email password
+define('MAIL_PORT', '');        // TCP port number to connect to

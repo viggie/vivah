@@ -24,3 +24,5 @@ define('VIEW', BASE_PATH.'web/views'.DS);
 $protocol = (!empty($_SERVER['HTTPS'])) ? 'https://' : 'http://';
 define('BASE_URL', $protocol.$_SERVER['HTTP_HOST']);
 define('NOT_FOUND',VIEW.'404.php');
+
+require 'vendor/autoload.php';

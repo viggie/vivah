@@ -117,25 +117,26 @@ if(isset($task)) {
 			$session->put('profid',$res);
 			$mmsg = '';
 			
-			// Mail sender
-			include CLASSES.'ViMailer.php';
-			$mail->isHTML(true);                                  // Set email format to HTML
-			$mail->addAddress($data['email']);
-			$mail->Subject = 'Welcome to '. SITENAME;
-			$mail->Body    = '
-			 <p>We wish you finding a great match at <b>'. SITENAME .'</b>.</p>
+			if(MAIL_HOST != '') {
+				// send password in email
+				include CLASSES.'ViMailer.php';
+				$mail->isHTML(true);
+				$mail->addAddress($data['email']);
+				$mail->Subject = 'Welcome to '. SITENAME;
+				$mail->Body    = '
+				 <p>We wish you finding a great match at <b>'. SITENAME .'</b>.</p>
 
-			 <p>Please visit <a href="'. BASE_URL .'/login">
-			 '. BASE_URL .'/login</a> and enter the following 
-			 login details <br>
-			 Profile ID: '.$data['gender'].$res.'<br>
-			 Passwod: '.$passwd.'</p>
+				 <p>Please visit <a href="'. BASE_URL .'/login">
+				 '. BASE_URL .'/login</a> and enter the following 
+				 login details <br>
+				 Profile ID: '.$data['gender'].$res.'<br>
+			 	Passwod: '.$passwd.'</p>
 
-			 <p><b>Important!  Please complete your profile to find a better match!</b></p>
+				 <p><b>Important!  Please complete your profile to find a better match!</b></p>
 
-			 <p>Thanks,<br> '. SITENAME .'</p>
-			';
-			$mail->AltBody = 'We wish you finding a great match at '. SITENAME .'
+				 <p>Thanks,<br> '. SITENAME .'</p>
+				';
+				$mail->AltBody = 'We wish you finding a great match at '. SITENAME .'
 
 Please visit '. BASE_URL .'login and enter the following login details 
 Profile ID: '.$data['gender'].$res.'
@@ -146,15 +147,24 @@ Important!  Please complete your profile to find a better match!
 Thanks,
 '. SITENAME .'
 			';
+
+				//send the message, check for errors
+				if (!$mail->send()) {
+					$mmsg = 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+				} else {
+					$mmsg = 'Login details sent. !';
+				}
 		
-			//send the message, check for errors
-			if (!$mail->send()) {
-				$mmsg = 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+
 			} else {
-				$mmsg = 'Login details sent. !';
+				// display password in screen
+				$mmsg = 'Please login with the following 
+				login details <br>
+				Profile ID: '.$data['gender'].$res.'<br>
+				Passwod: '.$passwd;
 			}
 		
-			$session->put('msg', $mmsg . ' Please check your mail box & login to complete your profile.');
+			$session->put('msg', $mmsg );
 		} else {
 			$session->put('msg','Unable to create Profile. Please contact admin.');
 		}

@@ -235,10 +235,10 @@ public function regForm() {
           <div class="col-md-10">
           <div class="btn-group btn-group-toggle mb-2" data-toggle="buttons">
             <label class="btn btn-outline-danger active">
-            <input type="radio" name="gender" id="gen1" value="G" checked> Female
+            <input type="radio" name="gender" id="gen1" value="F" checked> Female
             </label>
             <label class="btn btn-outline-danger">
-            <input type="radio" name="gender" id="gen2" value="B" > Male
+            <input type="radio" name="gender" id="gen2" value="M" > Male
             </label>
           </div>
           </div>

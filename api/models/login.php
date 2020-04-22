@@ -8,9 +8,11 @@ function initLogin($user, $passwd, $db, $session) {
 	if(isset($user) && isset($passwd)) 	{
 		 
 		//sanitize
-        $email = $db->real_escape_string($user);
+        $user = $db->real_escape_string($user);
+        $gender = strtoupper(substr($user,0,1));
+        $seekerid = substr($user,1);
 		//querystring.
-		$qst = "SELECT id,status,passwd,display_name, FROM user_accounts WHERE email='$email'";
+		$qst = "SELECT status,passwd,name,email FROM seekers WHERE id='$seekerid' AND gender='$gender'";
 		if(!$res = $db->query($qst)) {
 		    die('There was an error running the query [' . $db->error . ']');
 		}
@@ -25,10 +27,10 @@ function initLogin($user, $passwd, $db, $session) {
 			$session->put("vivah.user", true);
 							
 			//you can register what ever you want...
-			$session->put("user.id", $row["id"]);
+			$session->put("user.id", $seekerid);
 			$session->put("user.status", $row['status']);
-			$session->put("display.name", $row["display_name"]);
-			$session->put("user.email", $email);
+			$session->put("display.name", $row["name"]);
+			$session->put("user.email", $row['email']);
 			$session->put("msg", "");
 		  } else {
 			$session->put("msg", "<b>Incorrect Log-in</b>, Please try again.");
@@ -49,7 +51,7 @@ function initLogin($user, $passwd, $db, $session) {
 function changePwd($uid, $passwd, $db,$oldpwd) {
 	if (($uid>0) && (strlen($passwd)>3) ) {
 		// verify old password
-		$qst = "SELECT passwd FROM user_accounts WHERE id='$uid'";
+		$qst = "SELECT passwd FROM seekers WHERE id='$uid'";
 		$res = $db->query($qst);
 		$num_rows = $res->num_rows;
 		if ($num_rows > 0) 
@@ -57,7 +59,7 @@ function changePwd($uid, $passwd, $db,$oldpwd) {
 			$res->data_seek(0);
 			$row = $res->fetch_assoc();
 			if (password_verify($oldpwd, $row['passwd'])) {
-				$sql = "UPDATE user_accounts SET passwd='$passwd' WHERE id='$uid'";
+				$sql = "UPDATE seekers SET passwd='$passwd' WHERE id='$uid'";
 				$res1 = $db->query($sql);
 				if($res1) return true;
 			}

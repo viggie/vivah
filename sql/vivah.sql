@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 20, 2020 at 05:46 PM
+-- Generation Time: Apr 22, 2020 at 11:46 AM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
@@ -43,7 +43,7 @@ CREATE TABLE `param_communities` (
 
 CREATE TABLE `param_educategory` (
   `eduid` int(11) NOT NULL,
-  `category` varchar(100) NOT NULL
+  `educategory` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameters - Education Category';
 
 -- --------------------------------------------------------
@@ -54,7 +54,7 @@ CREATE TABLE `param_educategory` (
 
 CREATE TABLE `param_jobcategory` (
   `jobid` int(11) NOT NULL,
-  `category` varchar(100) NOT NULL
+  `jobcategory` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Parameters - Education Category';
 
 -- --------------------------------------------------------
@@ -190,7 +190,8 @@ INSERT INTO `param_stars` (`starid`, `star_eng`, `star_reg`, `updated_on`) VALUE
 
 CREATE TABLE `seekers` (
   `id` int(11) NOT NULL,
-  `added_by` int(11) DEFAULT NULL COMMENT 'usrid',
+  `added_by` varchar(3) DEFAULT NULL COMMENT 'User U, Admins A1',
+  `passwd` varchar(130) NOT NULL,
   `name` varchar(255) NOT NULL,
   `lastname` varchar(150) DEFAULT NULL,
   `gender` enum('F','M') NOT NULL DEFAULT 'F',
@@ -202,25 +203,47 @@ CREATE TABLE `seekers` (
   `state` varchar(100) DEFAULT NULL,
   `country` varchar(100) DEFAULT NULL,
   `education` varchar(255) DEFAULT NULL,
-  `eduid` int(3) NOT NULL,
-  `commid` int(3) NOT NULL,
+  `eduid` int(3) DEFAULT NULL,
+  `commid` int(3) DEFAULT NULL,
   `religionid` int(3) DEFAULT NULL,
   `starid` int(11) DEFAULT NULL,
   `rashiid` int(11) DEFAULT NULL,
   `statusid` int(11) NOT NULL DEFAULT '1',
   `astro_pic` varchar(255) DEFAULT NULL,
   `profile` text,
-  `jobid` int(3) NOT NULL,
+  `jobid` int(3) DEFAULT NULL,
   `job_place` varchar(100) DEFAULT NULL,
   `job_title` varchar(150) DEFAULT NULL,
   `job_salary` varchar(255) DEFAULT NULL,
+  `photo` varchar(150) DEFAULT NULL,
+  `height` varchar(15) DEFAULT NULL,
+  `weight` varchar(15) DEFAULT NULL,
+  `mother_tongue` varchar(75) DEFAULT NULL,
   `father_name` varchar(150) DEFAULT NULL,
   `father_job` varchar(150) DEFAULT NULL,
   `mother_name` varchar(150) DEFAULT NULL,
   `mother_job` varchar(150) DEFAULT NULL,
+  `brothers` int(2) DEFAULT NULL,
+  `sisters` int(2) DEFAULT NULL,
   `preferences` text,
-  `status` enum('A','P','S','D','N') NOT NULL DEFAULT 'A' COMMENT 'Active, Pending, Suspend, Delete, New'
+  `status` enum('A','P','S','D','N') NOT NULL DEFAULT 'N' COMMENT 'Active, Pending, Suspend, Delete, New',
+  `joined_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Match Seekers Profile';
+
+--
+-- Dumping data for table `seekers`
+--
+
+INSERT INTO `seekers` (`id`, `added_by`, `passwd`, `name`, `lastname`, `gender`, `dob`, `email`, `mobile`, `address`, `city`, `state`, `country`, `education`, `eduid`, `commid`, `religionid`, `starid`, `rashiid`, `statusid`, `astro_pic`, `profile`, `jobid`, `job_place`, `job_title`, `job_salary`, `photo`, `height`, `weight`, `mother_tongue`, `father_name`, `father_job`, `mother_name`, `mother_job`, `brothers`, `sisters`, `preferences`, `status`, `joined_on`) VALUES
+(1, 'U', '$2y$10$NfIti/KPgUF0Sl70BflK5uzzq8aMYzceM7ah3jJ4.ioJaTQrENAWW', 'Rajesh', NULL, 'M', '1999-04-21', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-21 20:04:15'),
+(2, 'U', '$2y$10$NfIti/KPgUF0Sl70BflK5uzzq8aMYzceM7ah3jJ4.ioJaTQrENAWW', 'Rajesh', NULL, 'M', '1999-04-21', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-21 20:05:02'),
+(3, 'U', '$2y$10$gBRtfVdvBq65xB0RgCsaye0xpUvMDONLcYvoUOmU1eARyQz4MIOyi', 'Rajesh', NULL, 'M', '1999-04-21', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-21 20:06:26'),
+(4, 'U', '$2y$10$XYFd7dzBKdRz.tgosJXAr.M6XoPaokI75z1g2W/rAKIxBZR2G.PXq', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 09:47:02'),
+(5, 'U', '$2y$10$C3fHrRA20EbS6D.noLlxVeMrsJovkskc2IBApgycQWw5ukrr45t2y', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 10:11:38'),
+(6, 'U', '$2y$10$b45RvKojInLAul90tnFXaesmFY5Tusic7sfcgROoUCCzgeoKUqGDW', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 10:12:20'),
+(7, 'U', '$2y$10$Hr4Icvyvh61QAfhHmEXlh.qerahg6epde08yBwqzdwueAPCZO2Kk.', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 10:14:31'),
+(8, 'U', '$2y$10$nMIbLoHdqaE9v4647jWOZeaORIRNw01DfG8IbOBxilatgxHmaxorq', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 10:15:34'),
+(9, 'U', '$2y$10$oeBEMvG6Au3pnJR.B0lVh.Jwu1r5G85XCw9H722z8VrdnZzHaIKDa', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 10:17:32');
 
 -- --------------------------------------------------------
 
@@ -253,14 +276,12 @@ INSERT INTO `staffs` (`staffid`, `user`, `name`, `passwd`, `role`, `status`, `ad
 
 CREATE TABLE `user_accounts` (
   `usrid` int(11) NOT NULL,
+  `seeker_id` int(11) NOT NULL,
   `display_name` varchar(75) DEFAULT NULL,
-  `email` varchar(150) NOT NULL,
-  `phone` bigint(12) NOT NULL,
   `passwd` varchar(130) DEFAULT NULL,
   `balance_points` int(5) DEFAULT NULL,
   `points_expire` date DEFAULT NULL,
   `status` enum('A','P','S','D') NOT NULL COMMENT 'Active, Pending, Suspend, Delete',
-  `joined_on` date NOT NULL,
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User Login & credits';
 
@@ -371,8 +392,7 @@ ALTER TABLE `staffs`
 -- Indexes for table `user_accounts`
 --
 ALTER TABLE `user_accounts`
-  ADD PRIMARY KEY (`usrid`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`usrid`);
 
 --
 -- Indexes for table `user_forgotpwd`
@@ -442,7 +462,7 @@ ALTER TABLE `param_stars`
 -- AUTO_INCREMENT for table `seekers`
 --
 ALTER TABLE `seekers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `staffs`

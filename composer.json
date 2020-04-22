@@ -1,0 +1,14 @@
+{
+    "name": "viggie/vivah",
+    "type": "WebApp",
+    "description": "Matrimony Web App for South India",
+    "authors": [
+        {
+            "name": "Viggie"
+        }
+    },
+    "require": {
+        "php": ">=7.0",
+        "phpmailer/phpmailer": "^6.1"
+    }
+}

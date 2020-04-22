@@ -21,7 +21,7 @@ class Profile
 
 
     public function getActive($limit=200) {
-        $qst = "SELECT p.*, e.category, j.category, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
+        $qst = "SELECT p.*, e.educategory, j.jobcategory, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
             FROM seekers as p
             LEFT JOIN param_educategory as e ON e.eduid = p.eduid
             LEFT JOIN param_jobcategory as j ON j.jobid = p.jobid
@@ -37,7 +37,7 @@ class Profile
     }
 
     public function getAll() {
-        $qst = "SELECT p.*, e.category, j.category, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
+        $qst = "SELECT p.*, e.educategory, j.jobcategory, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
             FROM seekers as p
             LEFT JOIN param_educategory as e ON e.eduid = p.eduid
             LEFT JOIN param_jobcategory as j ON j.jobid = p.jobid
@@ -55,7 +55,7 @@ class Profile
     public function get($id) {
         if($id>0) {
             $qst = "SELECT p.*, TIMESTAMPDIFF(YEAR, p.dob, now()) as age,
-                    e.category, j.category, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
+                    e.educategory, j.jobcategory, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
                         FROM seekers as p
                         LEFT JOIN param_educategory as e ON e.eduid = p.eduid
                         LEFT JOIN param_jobcategory as j ON j.jobid = p.jobid
@@ -82,7 +82,7 @@ class Profile
             if($subsectid=='A') { $subsect = NULL; } 
             else { $subsect = 'AND p.subsectid = '.$subsectid; }
             $qst ="SELECT p.*, TIMESTAMPDIFF(YEAR, p.dob, CURDATE()) AS age,
-                e.category, j.category, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english FROM seekers as p
+                e.educategory, j.jobcategory, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english FROM seekers as p
                 LEFT JOIN param_educategory as e ON e.eduid = p.eduid
                 LEFT JOIN param_jobcategory as j ON j.jobid = p.jobid
                 LEFT JOIN param_religion as g ON g.religionid = p.religionid
@@ -104,11 +104,11 @@ class Profile
         return false;
     }
 
-    public function getBySubsect($id,$limit=0) {
+    public function getByCommunities($id,$limit=0) {
         if($id>0) {
             $limits = '';
             if($limit>0) $limits = " LIMIT $limit";
-            $qst = "SELECT p.*, e.category, j.category, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
+            $qst = "SELECT p.*, e.educategory, j.jobcategory, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english 
             FROM seekers as p
             LEFT JOIN param_educategory as e ON e.eduid = p.eduid
             LEFT JOIN param_jobcategory as j ON j.jobid = p.jobid
@@ -117,7 +117,7 @@ class Profile
             LEFT JOIN param_stars as s ON s.starid = p.starid
             LEFT JOIN param_communities as c ON c.commid = p.commid
             WHERE p.status = 'A' 
-              AND p.subsectid = $id
+              AND p.commid = $id
             ORDER BY p.id DESC".$limits;
             $res = $this->db->query($qst);
             $data = $this->change2Array($res);
@@ -131,8 +131,8 @@ class Profile
 
     public function create($data) {
         if(is_array($data)) {
-            $qst = "INSERT INTO seekers(added_by, name, gender, dob, email, mobile) 
-                    VALUES ('{$data['added_by']}', '{$data['name']}',
+            $qst = "INSERT INTO seekers(added_by, passwd, name, gender, dob, email, mobile) 
+                    VALUES ('{$data['added_by']}', '{$data['passwd']}', '{$data['name']}',
                     '{$data['gender']}', '{$data['dob']}', '{$data['email']}', '{$data['mobile']}' 
                     )";
             $this->db->query($qst);
