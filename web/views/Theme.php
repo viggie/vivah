@@ -149,7 +149,7 @@ $html = <<<END
        <div class="container mt-3">
          <div class="row">
            <div class="col">
-             <img src="assets/images/RamSita.png" alt="$sitename" class="pt-3">
+             <h2> $sitename </h2>
             </div>
             <div class="col">
             <h3> Information </h3>
@@ -302,8 +302,8 @@ public function searchForm($communities,$formdata='') {
     $ageto   = $formdata['ageto'];
     $commid = $formdata['commid'];
 
-    if($gender=='G') $gselect = 'selected';
-    if($gender=='B') {
+    if($gender=='F') $gselect = 'selected';
+    if($gender=='M') {
       $lowend = 21;
       $bselect = 'selected';
     } 
@@ -326,8 +326,8 @@ public function searchForm($communities,$formdata='') {
          <div class="form-group mb-2 ml-2">
            <label class="sr-only" for="gender">Gender</label>
            <select name="gender" class="form-control">
-           <option value="G" $gselect> Girl </option>
-           <option value="B" $bselect> Boy </option>
+           <option value="F" $gselect> Female </option>
+           <option value="M" $bselect> Male </option>
            </select>
          </div>
          <div class="form-group mb-2 ml-2">

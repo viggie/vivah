@@ -78,9 +78,9 @@ class Profile
             $gender  = $data['gender'];
             $agefrom = $data['agefrom'];
             $ageto   = $data['ageto'];
-            $subsectid  = $data['subsectid'];
-            if($subsectid=='A') { $subsect = NULL; } 
-            else { $subsect = 'AND p.subsectid = '.$subsectid; }
+            $commid  = $data['commid'];
+            if($commid=='A') { $community = NULL; } 
+            else { $community = 'AND p.commid = '.$commid; }
             $qst ="SELECT p.*, TIMESTAMPDIFF(YEAR, p.dob, CURDATE()) AS age,
                 e.educategory, j.jobcategory, g.religion_eng, r.rashi_eng, s.star_eng, c.name_english FROM seekers as p
                 LEFT JOIN param_educategory as e ON e.eduid = p.eduid
@@ -93,7 +93,7 @@ class Profile
                   AND p.gender = '$gender'
                   AND TIMESTAMPDIFF(YEAR, p.dob, now()) >= $agefrom
                   AND TIMESTAMPDIFF(YEAR, p.dob, now()) <= $ageto
-                  $subsect
+                  $community
                 ORDER BY p.id DESC";
             $res = $this->db->query($qst);
             $data = $this->change2Array($res);

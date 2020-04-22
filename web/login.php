@@ -32,7 +32,7 @@ if($chk_login && ($section=='logout')) {
 $chk_login = $session->get('vivah.user');
 if($chk_login) {
     $status = $session->get('user.status');
-    if($status=='P') {
+    if($status=='N') {
         // First login
         $session->put("msg", "<b>Welcome!</b> Please change your password.");
         header("Location: ".BASE_URL."/change-password");

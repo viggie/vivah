@@ -16,6 +16,7 @@ $router->route('/^\/([\w-]+)\/?$/', function($section){
 	if(is_file(CONTROLLER."{$section}.php"))   
 	   include CONTROLLER."{$section}.php";
 	else if($section==ADMIN_URL) include CONTROLLER.'admin/index.php';
+	else if($section=='logout') include CONTROLLER.'index.php';
 	else include NOT_FOUND;
  });
 $router->route('/^\/([\w-]+)\/([\w-]+)\/?$/', function($section,$task){

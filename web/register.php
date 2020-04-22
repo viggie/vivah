@@ -32,8 +32,6 @@ $view = new Vi\View\registerView();
 
 if(isset($task)) {
 	switch ($task) {
-		case 'new':
-		break;
 
 		case 'mainimage':
 		$id        = trim($db->real_escape_string($_POST['id']));
@@ -70,25 +68,6 @@ if(isset($task)) {
 		header("Location: ".BASE_URL.'/register/edit');
 		break;
 
-		case 'edit':
-		if(isset($_POST['id'])) {
-			$id= trim($db->real_escape_string($_POST['id']));
-		} else {
-			$editid = $session->get('editid');
-			if(is_numeric($editid) && ($editid>0)) {
-				$id = $editid;
-				$session->put('editid','');
-			} else {
-				$session->put('msg','Insufficient data. Unable to Edit');
-				header("Location: ".BASE_URL.'/register');
-			}
-		}
-		$data = array (
-			'articles' => $article->get($id),
-			'sections' => $article->getSections()
-		);
-		$view_article->edit($data,$msg);
-		break;
 
 		case 'add':
 		// New registration

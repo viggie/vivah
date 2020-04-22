@@ -7,13 +7,13 @@ include(MODEL.'login.php');
 include VIEW.'indexView.php';
 
 // Session & Login
-$session = new Vi\Session('mylaiM');
+$session = new Vi\Session('vivah');
 $session->start();
 if ( ! $session->isValid(5)) {
     session_destroy();
 }
 
-$chk_login = $session->get('mylai.user');
+$chk_login = $session->get('vivah.user');
 if($chk_login) {
     $uid = $session->get('user.id');
     $status = $session->get('user.status');
@@ -36,7 +36,7 @@ if (!empty($oldpwd)) {
         $change = changePwd($uid,$passwd,$db,$oldpwd);
         if($change) {
             $session->put("msg", "<b>Password successfully changed!</b>");
-            if($status=='P') {
+            if($status=='N') {
                 // First login
                 header("Location: ".BASE_URL."/edit-profile");
             } else {

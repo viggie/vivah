@@ -18,7 +18,8 @@ class editprofileView extends siteView
         $edutype   = $data['edutype'];
         $jobtype   = $data['jobtype'];
         $religion  = $data['religion'];
-        $comm   = $data['comm'];
+        $community = $data['community'];
+        $mstatuses = $data['mstatus'];
         $stars     = $data['stars'];
         $rashi     = $data['rashi'];
 
@@ -47,7 +48,7 @@ class editprofileView extends siteView
         
         if ($profile['gender']=='G') { $gender = 'Girl';
         } else { $gender = 'Boy'; }
-        switch ($profile['marriage_statusid']) {
+        switch ($profile['statusid']) {
           case 'W': $mstatus = 'Widow'; if($profile['gender']=='B') $mstatus = 'Widower'; break;
           case 'D': $mstatus = 'Divorced'; break;
           case 'S': $mstatus = 'Separated'; break;
@@ -140,7 +141,7 @@ class editprofileView extends siteView
        <div class="tab-pane fade '.$pane1.'" id="basic" role="tabpanel" aria-labelledby="edu-tab">
         <form action="'.BASE_URL.'/edit-profile" method="post">
          <div class="row">
-         '. $this->formBasic($profile) .'
+         '. $this->formBasic($profile,$mstatuses) .'
          </div>
         </form>
        </div>
@@ -154,7 +155,7 @@ class editprofileView extends siteView
        <div class="tab-pane fade '.$pane3.'" id="personal" role="tabpanel" aria-labelledby="personal-tab">
         <form action="'.BASE_URL.'/edit-profile" method="post">
          <div class="row">
-         '. $this->formPersonal($profile,$comm,$religion,$stars,$rashi) .'
+         '. $this->formPersonal($profile,$community,$religion,$stars,$rashi) .'
          </div>
         </form>
        </div>
@@ -227,25 +228,21 @@ class editprofileView extends siteView
 
 
 
-    private function formBasic($profile) {
+    private function formBasic($profile,$mstatuses) {
       // Data 
-      if ($profile['gender'] =='B') {
+      if ($profile['gender'] =='M') {
         $boys = 'active';
-        $girls = '';
+        $mfield = 'checked';
+        $girls = $ffield = '';
       } else {
-        $boys = '';
+        $boys = $mfield = '';
         $girls = 'active';
+        $ffield = 'checked';
       }
       $mindate = date('Y-m-d',strtotime('-60years'));
       $maxdate = date('Y-m-d',strtotime('-18years'));    
 
-      $mstatus = array(
-        array( 'id'=>'U', 'name'=>'Never Married' ),
-        array( 'id'=>'W', 'name'=>'Widow(er)' ),
-        array( 'id'=>'D', 'name'=>'Divorced' ),
-        array( 'id'=>'S', 'name'=>'Separated' )
-      );
-      $mstatuslist = $this->select_options($mstatus,$profile['marriage_statusid']);
+      $mstatuslist = $this->select_options($mstatuses,$profile['statusid']);
 
 
       $content = '
@@ -255,10 +252,10 @@ class editprofileView extends siteView
           <div class="col-md-10">
           <div class="btn-group btn-group-toggle mb-2" data-toggle="buttons">
             <label class="btn btn-outline-danger '.$girls.'">
-            <input type="radio" name="gender" id="gen1" value="G" checked> Female
+            <input type="radio" name="gender" id="gen1" value="F" '.$ffield.'> Female
             </label>
             <label class="btn btn-outline-danger '.$boys.'">
-            <input type="radio" name="gender" id="gen2" value="B" > Male
+            <input type="radio" name="gender" id="gen2" value="M" '.$mfield.'> Male
             </label>
           </div>
           </div>
@@ -289,7 +286,7 @@ class editprofileView extends siteView
          <div class="col-sm">
           <h5> Contact Details </h5>
           <div class="form-group">
-          <label for="contact" class="form-label"> Contact Name <sup>*</sup></label>
+          <label for="contact" class="form-label"> Contact Person <sup>*</sup></label>
             <input type="text" class="form-control" name="contact" placeholder="Contact Name" value="'. $profile['contact'] .'" required> 
          </div>
 
@@ -343,7 +340,7 @@ class editprofileView extends siteView
 
           <div class="form-group">
            <label for="edu_details" class="form-label"> Education Details </label>
-             <input type="text" class="form-control" name="edu_details" value="'. $profile['edu_details'] .'" placeholder="Degree or Certificate Details"> 
+             <input type="text" class="form-control" name="edu_details" value="'. $profile['education'] .'" placeholder="Degree or Certificate Details"> 
           </div>
 
 
@@ -388,19 +385,12 @@ class editprofileView extends siteView
     }    
 
 
-    private function formPersonal($profile,$comm,$religion,$stars,$rashi) {
-      $commlist = $this->select_options($comm,$profile['commid']);
-      $religionlist = $this->select_options($religion,$profile['gothraid']);
+    private function formPersonal($profile,$community,$religion,$stars,$rashi) {
+      $commlist = $this->select_options($community,$profile['commid']);
+      $religionlist = $this->select_options($religion,$profile['religionid']);
 
       $starlist = $this->select_options($stars,$profile['starid']);
       $rashilist = $this->select_options($rashi,$profile['rashiid']);
-
-      $complexion = array(
-        array( 'id'=>'V', 'name'=>'Very Fair' ),
-        array( 'id'=>'F', 'name'=>'Fair' ),
-        array( 'id'=>'M', 'name'=>'Medium' )
-      );
-      $complexlist = $this->select_options($complexion,$profile['complexion']);
 
       $content = '
         <div class="col-sm">

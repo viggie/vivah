@@ -66,7 +66,7 @@ if(isset($task)) {
 			$taskid = substr($profid,1);
 			$gender = strtoupper(substr($profid,0,1));
 
-			if(($gender == 'B') || ($gender == 'G')) {
+			if(($gender == 'M') || ($gender == 'F')) {
 				if (is_numeric($taskid)) {
 					header("Location: ".BASE_URL."/profile/".$profid);
 					break;

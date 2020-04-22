@@ -140,8 +140,8 @@ class searchView extends siteView
       
       $profid =  $row['gender'] .  $row['id'];
     
-      if ($row['gender']=='G') { $gender = 'Girl';
-      } else { $gender = 'Boy'; }
+      if ($row['gender']=='F') { $gender = 'Female';
+      } else { $gender = 'Male'; }
 
       if($odd=="Y") {
 			  $mainclass = "odd";
@@ -151,7 +151,7 @@ class searchView extends siteView
 			  $bclass = "secondary";
 		  }
 
-		  $bgroom = ($row['gender']=="G") ? "<b>Bride</b>" : "<b>Groom</b>";
+		  $bgroom = ($row['gender']=="F") ? "<b>Bride</b>" : "<b>Groom</b>";
 		  
 
   		$mstatus   = $row['status'];
@@ -179,9 +179,9 @@ class searchView extends siteView
            <div class="row mb-3">
              <div class="col-sm-4"> Name </div> <div class="col-sm-8"> '.$row['name'] .'</div>
              <div class="col-sm-4"> Age </div> <div class="col-sm-8"> '.$row['age'] .'</div>
-             <div class="col-sm-4"> Education </div>  <div class="col-sm-8"> '.$row['category'] .'</div>
-             <div class="col-sm-4"> &nbsp; </div>  <div class="col-sm-8"> '.$row['edu_details'] .'</div>
-             <div class="col-sm-4"> Job </div>  <div class="col-sm-8"> '.$row['job_type'] .'</div>
+             <div class="col-sm-4"> Education </div>  <div class="col-sm-8"> '.$row['educategory'] .'</div>
+             <div class="col-sm-4"> &nbsp; </div>  <div class="col-sm-8"> '.$row['education'] .'</div>
+             <div class="col-sm-4"> Job </div>  <div class="col-sm-8"> '.$row['jobcategory'] .'</div>
              <div class="col-sm-4"> Job Location </div>  <div class="col-sm-8"> '.$row['job_place'] .'</div>
            </div>
 

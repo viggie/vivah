@@ -146,7 +146,7 @@ if (isset($_POST['formnum'])) {
     		$address = trim($db->real_escape_string($_POST['address']));
 
 
-            $data = "gender='$gender', name='$pname', lastname='$lname', dob='$dob', marriage_statusid='$mstatus',
+            $data = "gender='$gender', name='$pname', lastname='$lname', dob='$dob', statusid='$mstatus',
             contact='$contact', mobile='$pphone', address='$address' ";
             $res = $profile->edit($data, $uid);
 
@@ -158,6 +158,13 @@ if (isset($_POST['formnum'])) {
             
         break;
     }
+
+    $status = $session->get('user.status');
+    if($status=='N') {
+        $profile->reActivate($uid);
+        $msg .= '<br>Your profile is now Active.';
+    }
+
 }
 
 if($msg=='') {
@@ -179,6 +186,7 @@ $data = array (
     'jobtype'  => $masters->getJobCategories(),
     'religion'  => $masters->getReligions(),
     'community'  => $masters->getCommunities(),
+    'mstatus'  => $masters->getMaritalStatuses(),
     'stars'    => $masters->getStars(),
     'rashi'    => $masters->getRashis(),
     'profile'  => $profile->get($uid)
