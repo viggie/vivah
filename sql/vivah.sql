@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 22, 2020 at 11:46 AM
+-- Generation Time: Apr 23, 2020 at 06:41 AM
 -- Server version: 5.7.29-0ubuntu0.18.04.1
--- PHP Version: 7.2.24-0ubuntu0.18.04.3
+-- PHP Version: 7.2.24-0ubuntu0.18.04.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `vhosts_vivah`
+-- Database: `vivah`
 --
 
 -- --------------------------------------------------------
@@ -198,6 +198,7 @@ CREATE TABLE `seekers` (
   `dob` date DEFAULT NULL,
   `email` varchar(150) DEFAULT NULL,
   `mobile` varchar(25) DEFAULT NULL,
+  `contact` varchar(150) DEFAULT NULL,
   `address` text,
   `city` varchar(100) DEFAULT NULL,
   `state` varchar(100) DEFAULT NULL,
@@ -234,16 +235,6 @@ CREATE TABLE `seekers` (
 -- Dumping data for table `seekers`
 --
 
-INSERT INTO `seekers` (`id`, `added_by`, `passwd`, `name`, `lastname`, `gender`, `dob`, `email`, `mobile`, `address`, `city`, `state`, `country`, `education`, `eduid`, `commid`, `religionid`, `starid`, `rashiid`, `statusid`, `astro_pic`, `profile`, `jobid`, `job_place`, `job_title`, `job_salary`, `photo`, `height`, `weight`, `mother_tongue`, `father_name`, `father_job`, `mother_name`, `mother_job`, `brothers`, `sisters`, `preferences`, `status`, `joined_on`) VALUES
-(1, 'U', '$2y$10$NfIti/KPgUF0Sl70BflK5uzzq8aMYzceM7ah3jJ4.ioJaTQrENAWW', 'Rajesh', NULL, 'M', '1999-04-21', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-21 20:04:15'),
-(2, 'U', '$2y$10$NfIti/KPgUF0Sl70BflK5uzzq8aMYzceM7ah3jJ4.ioJaTQrENAWW', 'Rajesh', NULL, 'M', '1999-04-21', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-21 20:05:02'),
-(3, 'U', '$2y$10$gBRtfVdvBq65xB0RgCsaye0xpUvMDONLcYvoUOmU1eARyQz4MIOyi', 'Rajesh', NULL, 'M', '1999-04-21', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-21 20:06:26'),
-(4, 'U', '$2y$10$XYFd7dzBKdRz.tgosJXAr.M6XoPaokI75z1g2W/rAKIxBZR2G.PXq', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 09:47:02'),
-(5, 'U', '$2y$10$C3fHrRA20EbS6D.noLlxVeMrsJovkskc2IBApgycQWw5ukrr45t2y', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 10:11:38'),
-(6, 'U', '$2y$10$b45RvKojInLAul90tnFXaesmFY5Tusic7sfcgROoUCCzgeoKUqGDW', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 10:12:20'),
-(7, 'U', '$2y$10$Hr4Icvyvh61QAfhHmEXlh.qerahg6epde08yBwqzdwueAPCZO2Kk.', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 10:14:31'),
-(8, 'U', '$2y$10$nMIbLoHdqaE9v4647jWOZeaORIRNw01DfG8IbOBxilatgxHmaxorq', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 10:15:34'),
-(9, 'U', '$2y$10$oeBEMvG6Au3pnJR.B0lVh.Jwu1r5G85XCw9H722z8VrdnZzHaIKDa', 'Rajesh', NULL, 'M', '1999-04-22', 'rajesh@vaidya.com', '896587548', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2020-04-22 10:17:32');
 
 -- --------------------------------------------------------
 
@@ -462,7 +453,7 @@ ALTER TABLE `param_stars`
 -- AUTO_INCREMENT for table `seekers`
 --
 ALTER TABLE `seekers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
 
 --
 -- AUTO_INCREMENT for table `staffs`
