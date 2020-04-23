@@ -73,7 +73,7 @@ class profileView extends siteView
           $img = BASE_URL.'/profile-pics/thumbs/'.$profile['photo'];
           $showimg = '<a href="" data-toggle="modal" data-target="#showPhoto" data-whatever="showPhoto">
           <img src="'.$img.'" class="img-thumbnail rounded-circle" alt="'. $profile['name'] .'"></a>';
-          $mainimg = BASE_URL.'/profile-pics/'.$profile['picture'];
+          $mainimg = BASE_URL.'/profile-pics/'.$profile['photo'];
         }
         $profid =  $profile['gender'] .  $profile['id'];
         

@@ -202,7 +202,7 @@ class Profile
 
     public function addPhoto($image,$id) {
         if ($id>0) {
-            $qst = "UPDATE seekers SET picture='$image' WHERE id = ".$id;
+            $qst = "UPDATE seekers SET photo='$image' WHERE id = ".$id;
             $this->db->query($qst);
             return true;
         }
