@@ -39,7 +39,7 @@ $formnum = 0;
 if (isset($task)) {
     switch ($task) {
         case 'photo' : 
-        include ('adm_inc/editphoto.php');
+        include (CONTROLLER.'admin/editphoto.php');
         header("Location: ".BASE_URL.'/edit-profile');
         break;
     }
