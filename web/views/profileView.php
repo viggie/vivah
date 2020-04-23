@@ -66,7 +66,7 @@ class profileView extends siteView
         }
         
         if($profile['photo']=='') {
-          $img = BASE_URL.'/images/'.$profile['gender']."ph.png";
+          $img = BASE_URL.'/assets/images/'.$profile['gender']."ph.png";
           $showimg = '<img src="'.$img.'" class="img-thumbnail rounded-circle" alt="'. $profile['name'] .'">';
           $mainimg = '';
         } else {

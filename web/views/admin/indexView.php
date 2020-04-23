@@ -213,9 +213,9 @@ class indexView extends AdminView
       }
       
       if($profile['photo']=='') {
-        $img = BASE_URL.'/images/'.$profile['gender']."ph.png";
+        $img = BASE_URL.'/assets/images/'.$profile['gender']."ph.png";
       } else {
-        $img = BASE_URL.'/profile/'.$profile['photo'];
+        $img = BASE_URL.'/profile-pics/thumbs/'.$profile['photo'];
       }
       $profid =  $profile['gender'] .  $profile['id'];
       
@@ -395,9 +395,9 @@ public function editProfile($data) {
     }
     
     if($profile['photo']=='') {
-      $img = BASE_URL.'/images/'.$profile['gender']."ph.png";
+      $img = BASE_URL.'/assets/images/'.$profile['gender']."ph.png";
     } else {
-      $img = BASE_URL.'/profile/'.$profile['photo'];
+      $img = BASE_URL.'/profile-pics/thumbs/'.$profile['photo'];
     }
     $profid =  $profile['gender'] .  $profile['id'];
     

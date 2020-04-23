@@ -31,7 +31,7 @@ class editprofileView extends siteView
         }
         
         if($profile['photo']=='') {
-          $mainimg = $img = BASE_URL.'/images/'.$profile['gender']."ph.png";
+          $mainimg = $img = BASE_URL.'/assets/images/'.$profile['gender']."ph.png";
         } else {
           $img = BASE_URL.'/profile-pics/thumbs/'.$profile['photo'];
           $mainimg = BASE_URL.'/profile-pics/'.$profile['photo'];

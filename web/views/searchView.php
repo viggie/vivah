@@ -133,9 +133,9 @@ class searchView extends siteView
 		  if (!is_array($row)) { return ""; }
     
       if($row['photo']=='') {
-        $img = BASE_URL.'/images/'.$row['gender']."ph.png";
+        $img = BASE_URL.'/assets/images/'.$row['gender']."ph.png";
       } else {
-        $img = BASE_URL.'/profile/'.$row['photo'];
+        $img = BASE_URL.'/profile-pics/thumbs/'.$row['photo'];
       }
       
       $profid =  $row['gender'] .  $row['id'];
